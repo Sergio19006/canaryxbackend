@@ -1,0 +1,19 @@
+{
+  "name": "canaryxbackend",
+  "version": "1.0.0",
+  "description": "A api for the canary expirience web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sergio19006/canaryxbackend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sergio19006/canaryxbackend/issues"
+  },
+  "homepage": "https://github.com/Sergio19006/canaryxbackend#readme"
+}
