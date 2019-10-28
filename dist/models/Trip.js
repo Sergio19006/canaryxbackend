@@ -5,12 +5,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const userSchema = new mongoose_1.default.Schema({
-    email: { type: String, unique: true },
-    nickname: String,
-    password: String,
-    businnes: Boolean,
-    logo: String,
-    description: String
+    transport: Boolean,
+    place: String,
+    type: String,
+    totalPersons: Number,
+    guide: String,
+    lunch: Boolean,
+    hour: String,
+    date: String,
+    reviews: Array,
+    island: String,
+    participants: Number,
+    avgScore: Number,
+    organizator: String,
+    conditions: Array,
+    images: Array,
+    active: Boolean,
+    price: Number
 });
 exports.User = mongoose_1.default.model("User", userSchema);
-//# sourceMappingURL=User.js.map
+//# sourceMappingURL=Trip.js.map
