@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const tripSchema = new mongoose.Schema({
   transport: Boolean,
   place: String,
   type: String,
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   conditions: Array,
   images: Array,
   active: Boolean,
-  price: Number
-});
+  price: Number,
+}, { collection: "Trips" });
 
-export const User = mongoose.model("User", userSchema);
+export const Trip = mongoose.model("Trip", tripSchema);

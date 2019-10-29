@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const path_1 = __importDefault(require("path"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const tripRoutes_1 = __importDefault(require("./routes/tripRoutes"));
 const cors_1 = __importDefault(require("cors"));
 // Create Express server
 const app = express_1.default();
@@ -23,6 +24,7 @@ const corsOptions = {
     preflightContinue: false
 };
 app.use(cors_1.default(corsOptions));
-app.use('/api/users', userRoutes_1.default);
+app.use('/api/v1/users', userRoutes_1.default);
+app.use('/api/v1/trips', tripRoutes_1.default);
 exports.default = app;
 //# sourceMappingURL=app.js.map

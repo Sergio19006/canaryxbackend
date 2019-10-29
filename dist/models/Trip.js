@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const userSchema = new mongoose_1.default.Schema({
+const tripSchema = new mongoose_1.default.Schema({
     transport: Boolean,
     place: String,
     type: String,
@@ -21,7 +21,7 @@ const userSchema = new mongoose_1.default.Schema({
     conditions: Array,
     images: Array,
     active: Boolean,
-    price: Number
-});
-exports.User = mongoose_1.default.model("User", userSchema);
+    price: Number,
+}, { collection: "Trips" });
+exports.Trip = mongoose_1.default.model("Trip", tripSchema);
 //# sourceMappingURL=Trip.js.map

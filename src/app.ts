@@ -1,8 +1,8 @@
 import express from "express";
-import session from "express-session";
 import bodyParser from "body-parser";
 import path from "path";
 import userRouter from "./routes/userRoutes";
+import tripRouter from "./routes/tripRoutes";
 import cors from 'cors';
 
 // Create Express server
@@ -26,6 +26,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use('/api/users', userRouter);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/trips', tripRouter);
 
 export default app;
