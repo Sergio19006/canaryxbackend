@@ -1,29 +1,19 @@
 import async from "async";
 import crypto from "crypto";
-import passport from "passport";
-import { User } from "../models/User";
+import { User } from '../types/user';
+
 import { Request, Response } from "express";
-import { IVerifyOptions } from "passport-local";
-import { WriteError } from "mongodb";
-import { check, sanitize, validationResult } from "express-validator";
+
+import * as userRepository from '../repositories/UserRepository';
 
 
-export const postLogin = (req: Request, res: Response) => {
-    check("email", "Email is not valid").isEmail();
-    check("password", "Password cannot be blank").isLength({ min: 1 });
-};
+export const login = async (req: Request, res: Response) => {
+    console.log(req);
+    return res.status(200).send("logueadooo");
+}
 
-export const postSignup = (req: Request, res: Response) => {
-    check("email", "Email is not valid").isEmail();
-    check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
-    check("confirmPassword", "Passwords do not match").equals(req.body.password);
-};
-
-export const postUpdateProfile = (req: Request, res: Response) => {
-    check("email", "Please enter a valid email address.").isEmail();
-};
-
-export const postUpdatePassword = (req: Request, res: Response) => {
-    check("password", "Password must be at least 4 characters long").isLength({ min: 4 });
-    check("confirmPassword", "Passwords do not match").equals(req.body.password);
+export const signup = async (req: Request, res: Response) => {
+    console.log(req.body);
+    await userRepository.createUser(req.body);
+    return res.status(200).send("singupeado bbsitaa");
 };

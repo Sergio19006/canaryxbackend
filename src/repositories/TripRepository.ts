@@ -1,6 +1,6 @@
 
 import { connectDatabase } from "../util/ConectionDatabase";
-import { Trip } from "../models/Trip"
+import { Trip } from "../models/TripModel"
 
 export const addTrip = async () => {
   connectDatabase();

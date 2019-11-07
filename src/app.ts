@@ -1,5 +1,4 @@
 import express from "express";
-import bodyParser from "body-parser";
 import path from "path";
 import userRouter from "./routes/userRoutes";
 import tripRouter from "./routes/tripRoutes";
@@ -10,8 +9,6 @@ const app = express();
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
 );
@@ -25,6 +22,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripRouter);

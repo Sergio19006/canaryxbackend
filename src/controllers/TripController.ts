@@ -1,7 +1,7 @@
 import async from "async";
 import crypto from "crypto";
 import passport from "passport";
-import { User } from "../models/User";
+import { User } from "../models/UserModel";
 import { Request, Response } from "express";
 import { IVerifyOptions } from "passport-local";
 import { WriteError } from "mongodb";

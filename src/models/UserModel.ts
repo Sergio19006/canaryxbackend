@@ -7,6 +7,6 @@ const userSchema = new mongoose.Schema({
     businnes: Boolean,
     logo: String,
     description: String
-});
+}, { collection: "Users" });
 
 export const User = mongoose.model("User", userSchema);
