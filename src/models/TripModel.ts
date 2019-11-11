@@ -18,6 +18,7 @@ const tripSchema = new mongoose.Schema({
   images: Array,
   active: Boolean,
   price: Number,
+  coordenates: String
 }, { collection: "Trips" });
 
-export const Trip = mongoose.model("Trip", tripSchema);
+export const tripData = mongoose.model("Trip", tripSchema);

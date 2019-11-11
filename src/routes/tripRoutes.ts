@@ -8,7 +8,7 @@ router.get("/", (req: Request, res: Response) => {
 });
 
 router.post("/addTrip", async (req: Request, res: Response) => {
-  await tripController.addTrip();
+  await tripController.addTrip(req, res);
   res.status(200).send("Ingresao con éxito");
 });
 

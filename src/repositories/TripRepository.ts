@@ -1,27 +1,33 @@
 
 import { connectDatabase } from "../util/ConectionDatabase";
-import { Trip } from "../models/TripModel"
+import { tripData } from "../models/TripModel";
+import { Trip } from "../types/trip";
 
-export const addTrip = async () => {
+export const addTrip = async (trip: Trip) => {
   connectDatabase();
-  const data = new Trip({
-    transport: true,
-    place: "El teide",
-    type: "Walk",
-    totalPersons: 3,
-    guide: "Sergio",
-    lunch: true,
-    hour: "10:00",
-    date: "2019-10-20",
-    reviews: ["nothing here"],
-    island: "Tenerife",
-    participants: 2,
-    avgScore: 0,
-    organizator: "TUI",
-    conditions: ["Conditions"],
-    images: ["http://"],
-    active: true,
-    price: 3,
+  const data = new tripData({
+    transport: trip.transport,
+    place: trip.place,
+    type: trip.type || "",
+    totalPersons: trip.totalPersons,
+    guide: trip.guide,
+    lunch: trip.lunch,
+    hour: trip.hour,
+    date: trip.date,
+    reviews: trip.reviews,
+    island: trip.island,
+    participants: trip.participants,
+    avgScore: trip.avgScore,
+    organizator: trip.organizator,
+    conditions: trip.conditions,
+    images: trip.images,
+    active: trip.active,
+    price: trip.price,
+    cordenates: trip.conditions
   });
   await data.save();
+}
+
+export const getTrips = () => {
+
 }
