@@ -28,5 +28,7 @@ export const createUser = async (user: User) => {
 export const checkPassw = async (email: String, password: String) => {
   connectDatabase();
   const user: mongoUser = await userData.findOne({ email });
+  if (user == undefined)
+    return false;
   return await compare(password, user.password);
 }
