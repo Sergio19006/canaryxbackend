@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Response, Request } from "express";
 import path from "path";
 import userRouter from "./routes/userRoutes";
 import tripRouter from "./routes/tripRoutes";
@@ -26,5 +26,9 @@ app.use(express.json());
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripRouter);
+
+app.use((error: any, req: Request, res: Response, next: any) => {
+    res.status(error.status).send("Error");
+});
 
 export default app;

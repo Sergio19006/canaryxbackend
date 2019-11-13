@@ -24,5 +24,9 @@ app.use(cors_1.default(corsOptions));
 app.use(express_1.default.json());
 app.use('/api/v1/users', userRoutes_1.default);
 app.use('/api/v1/trips', tripRoutes_1.default);
+app.use((error, req, res, next) => {
+    console.log("Estee es el error", error.status);
+    res.status(error.status).send("Error");
+});
 exports.default = app;
 //# sourceMappingURL=app.js.map

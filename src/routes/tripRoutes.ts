@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 import * as tripController from "../controllers/TripController";
 import * as tripRepository from "../repositories/TripRepository";
 import { Trip } from 'trip';
+import asyncHandler from 'express-async-handler';
+import createError from 'http-errors';
 
 const router = Router();
 
@@ -15,13 +17,13 @@ router.post("/addTrip", async (req: Request, res: Response) => {
   res.status(200).send("Ingresado con éxito");
 });
 
-router.post("/trip", async (req: Request, res: Response) => {
-  const type: String = req.body.type;
+router.post("/trip", asyncHandler(async (req: Request, res: Response) => {
+  /*const type: String = req.body.type;
   const trips = await tripController.TripsByType(type, tripRepository);
   if (trips == "error")
     return res.status(411).send("error con el type");
-  return res.status(200).send(trips);
-});
-
+  return res.status(200).send(trips);*/
+  throw createError(400, "Fue mal el get trip bb");
+}));
 
 export default router;

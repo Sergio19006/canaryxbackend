@@ -30,10 +30,7 @@ export const addTrip = async (trip: Trip) => {
 
 export const TripsByType = async (type: String) => {
   connectDatabase();
-  console.log("Esntrooooo")
-  console.log(type)
   const trips = await tripData.find({ type: type });
-  console.log("hago la busqueda", trips);
   return trips;
 
 
