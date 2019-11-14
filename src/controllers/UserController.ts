@@ -1,6 +1,7 @@
 import { sign } from "jsonwebtoken";
 import { User } from '../types/user';
 import { Request, Response } from "express";
+import createError from 'http-errors';
 
 
 export const login = async (req: Request, res: Response, userRepository: any) => {
@@ -13,8 +14,7 @@ export const login = async (req: Request, res: Response, userRepository: any) =>
         return res.status(200).send(token);
     }
     else
-        return res.status(200).send("")
-
+        throw createError(411, "Login was wrong");
 }
 
 export const signup = async (user: User, userRepository: any) => {

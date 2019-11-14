@@ -2,6 +2,7 @@ import { hashSync, compare } from "bcrypt";
 import { connectDatabase } from "../util/ConectionDatabase";
 import { userData } from "../models/UserModel";
 import { User, mongoUser } from "../types/user";
+import createError from 'http-errors';
 const saltRounds = 10;
 
 
@@ -21,7 +22,7 @@ export const createUser = async (user: User) => {
     await data.save();
     return "success";
   } catch (err) {
-    console.log("createUser", err);
+    throw createError(411, "CreateUser was wrong");
   }
 }
 
