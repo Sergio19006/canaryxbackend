@@ -9,7 +9,6 @@
 	"author": "Bowden Kelly",
 	"license": "MIT",
 	"scripts": {
-		"dev": "tsc && npm run serve",
 		"build": "npm run build-ts",
 		"serve": "tsc && node dist/server.js",
 		"watch-node": "nodemon dist/server.js",

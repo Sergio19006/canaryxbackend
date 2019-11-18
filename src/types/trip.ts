@@ -18,7 +18,9 @@ export interface Trip {
   images: Array<String>,
   active: Boolean,
   price: Number,
-  coordenates: String
+  coordenates: String,
+  owner: String,
+  title: String
 };
 
 export interface mongoTrip extends Document {
@@ -39,5 +41,7 @@ export interface mongoTrip extends Document {
   images: Array<String>,
   active: Boolean,
   price: Number,
-  coordenates: String
+  coordenates: String,
+  owner: String,
+  title: String
 }

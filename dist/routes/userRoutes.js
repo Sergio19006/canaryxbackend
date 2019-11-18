@@ -33,7 +33,7 @@ router.post("/login", [
     express_validator_1.check("email", "Email is not valid").isEmail(),
     express_validator_1.check("password", "Password must be at least 4 characters long").isLength({ min: 4 })
 ], express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = yield userController.login(req, res, userRepository);
+    const token = yield userController.login(req, userRepository);
     res.status(200).send(token);
 })));
 router.post("/signup", [

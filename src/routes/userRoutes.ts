@@ -17,7 +17,7 @@ router.post("/login", [
   check("email", "Email is not valid").isEmail(),
   check("password", "Password must be at least 4 characters long").isLength({ min: 4 })],
   asyncHandler(async (req: Request, res: Response) => {
-    const token = await userController.login(req, res, userRepository);
+    const token = await userController.login(req, userRepository);
     res.status(200).send(token);
   }));
 

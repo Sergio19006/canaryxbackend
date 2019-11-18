@@ -1,7 +1,7 @@
 
 import { connectDatabase } from "../util/ConectionDatabase";
 import { tripData } from "../models/TripModel";
-import { Trip } from "../types/trip";
+import { Trip, mongoTrip } from "../types/trip";
 
 export const addTrip = async (trip: Trip) => {
   connectDatabase();
@@ -23,16 +23,31 @@ export const addTrip = async (trip: Trip) => {
     images: trip.images,
     active: trip.active,
     price: trip.price,
-    cordenates: trip.conditions
+    cordenates: trip.conditions,
+    owner: trip.owner,
+    title: trip.title
   });
   await data.save();
 }
 
-export const TripsByType = async (type: String) => {
+export const tripsByType = async (type: String) => {
   connectDatabase();
-  const trips = await tripData.find({ type: type });
+  const trips: Array<mongoTrip> = await tripData.find({ type: type });
   return trips;
+}
 
+export const tripsByPlace = async (place: String) => {
+  connectDatabase();
+  const trips: Array<mongoTrip> = await tripData.find({ place, active: true });
+  return trips;
+}
 
-
+export const activateTrip = async (_id: String) => {
+  connectDatabase();
+  const trip: mongoTrip = await tripData.findOne({ _id });
+  if (trip != null) {
+    trip.active = true;
+    await trip.save();
+  }
+  return trip;
 }

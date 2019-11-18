@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { mongoTrip } from "../types/trip";
 
-const tripSchema = new mongoose.Schema({
+const tripSchema = new mongoose.Schema<mongoTrip>({
   transport: Boolean,
   place: String,
   type: String,
@@ -18,7 +19,9 @@ const tripSchema = new mongoose.Schema({
   images: Array,
   active: Boolean,
   price: Number,
-  coordenates: String
+  coordenates: String,
+  owner: String,
+  title: String
 }, { collection: "Trips" });
 
-export const tripData = mongoose.model("Trip", tripSchema);
+export const tripData = mongoose.model<mongoTrip>("Trip", tripSchema);
