@@ -16,15 +16,21 @@ router.post("/addTrip", asyncHandler(async (req: Request, res: Response) => {
   res.status(200).send("success");
 }));
 
-router.post("/tripByType", asyncHandler(async (req: Request, res: Response) => {
+router.post("/tripsByType", asyncHandler(async (req: Request, res: Response) => {
   const { type } = req.body;
   const trips = await tripController.tripsByType(type, tripRepository);
   return res.status(200).send(trips);
 }));
 
-router.post("/tripByPlace", asyncHandler(async (req: Request, res: Response) => {
+router.post("/tripsByPlace", asyncHandler(async (req: Request, res: Response) => {
   const { place } = req.body;
   const trips = await tripController.tripsByPlace(place, tripRepository);
+  return res.status(200).send(trips);
+}));
+
+router.post("/tripsByDate", asyncHandler(async (req: Request, res: Response) => {
+  const { date } = req.body;
+  const trips = await tripController.tripsByDate(date, tripRepository);
   return res.status(200).send(trips);
 }));
 

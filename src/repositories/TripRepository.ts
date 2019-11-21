@@ -42,6 +42,12 @@ export const tripsByPlace = async (place: String) => {
   return trips;
 }
 
+export const tripsByDate = async (date: String) => {
+  connectDatabase();
+  const trips: Array<mongoTrip> = await tripData.find({ date, active: true });
+  return trips;
+}
+
 export const activateTrip = async (_id: String) => {
   connectDatabase();
   const trip: mongoTrip = await tripData.findOne({ _id });

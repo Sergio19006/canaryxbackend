@@ -1,5 +1,6 @@
 import { Trip } from "trip";
 import { typesOfTrips } from "../util/typesOfTrips";
+import moment from 'moment';
 import createError from 'http-errors';
 
 
@@ -24,6 +25,19 @@ export const tripsByPlace = async (place: String, tripRepository: any) => {
     return trips;
   else
     throw createError(401, "No trips actives in this place");
+}
+
+export const tripsByDate = async (date: string, tripRepository: any) => {
+
+  if (moment(date, 'MM-DD-YYYY', true).isValid()) {
+    const trips = await tripRepository.tripsByDate(date);
+    if (trips.length > 0)
+      return trips;
+    else
+      throw createError(401, "No trips actives in this Date");
+  }
+  else
+    throw createError(401, "Error in format Date");
 }
 
 export const activateTrip = async (_id: String, tripRepository: any) => {
