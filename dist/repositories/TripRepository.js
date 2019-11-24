@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ConectionDatabase_1 = require("../util/ConectionDatabase");
 const TripModel_1 = require("../models/TripModel");
+const updateTrips_1 = require("../util/updateTrips");
 exports.addTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     const data = new TripModel_1.tripData({
@@ -60,5 +61,21 @@ exports.activateTrip = (_id) => __awaiter(void 0, void 0, void 0, function* () {
         yield trip.save();
     }
     return trip;
+});
+exports.updateTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    let tripUpdated = yield TripModel_1.tripData.findOne({ title: trip.title });
+    if (tripUpdated != null) {
+        tripUpdated = updateTrips_1.updateObjectsTrips(tripUpdated, trip);
+        yield tripUpdated.save();
+    }
+    return tripUpdated;
+});
+exports.similarTrips = (type, _id) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    let trips = yield TripModel_1.tripData.find({ type: type, });
+    let tripsToEliminate = yield TripModel_1.tripData.findOne({ _id });
+    trips = updateTrips_1.removeTrip(trips, tripsToEliminate._id);
+    return trips;
 });
 //# sourceMappingURL=TripRepository.js.map

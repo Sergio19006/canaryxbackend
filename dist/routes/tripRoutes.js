@@ -52,5 +52,15 @@ router.post("/activateTrip", express_async_handler_1.default((req, res) => __awa
     const trips = yield tripController.activateTrip(_id, tripRepository);
     return res.status(200).send(trips);
 })));
+router.post("/updateTrip", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const trip = req.body;
+    const trips = yield tripController.updateTrip(trip, tripRepository);
+    return res.status(200).send(trips);
+})));
+router.post("/similarTrips", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { type, _id } = req.body;
+    const trips = yield tripController.similarTrips(type, _id, tripRepository);
+    return res.status(200).send(trips);
+})));
 exports.default = router;
 //# sourceMappingURL=tripRoutes.js.map

@@ -57,4 +57,18 @@ exports.activateTrip = (_id, tripRepository) => __awaiter(void 0, void 0, void 0
     else
         throw http_errors_1.default(401, "No trip id is wrong");
 });
+exports.updateTrip = (trip, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const tripUpdated = yield tripRepository.updateTrip(trip);
+    if (tripUpdated != null)
+        return tripUpdated;
+    else
+        throw http_errors_1.default(401, "No trip id is wrong");
+});
+exports.similarTrips = (type, _id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const trips = yield tripRepository.similarTrips(type, _id);
+    if (trips != null)
+        return trips;
+    else
+        throw http_errors_1.default(401, "No trips similars found");
+});
 //# sourceMappingURL=TripController.js.map

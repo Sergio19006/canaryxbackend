@@ -28,7 +28,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripRouter);
 
 app.use((error: any, req: Request, res: Response, next: any) => {
-    res.status(error.status).send(`Error: ${error.message}`);
+    res.status(error.status || 401).send(`Error: ${error.message}`);
 });
 
 export default app;

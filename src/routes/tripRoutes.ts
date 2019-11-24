@@ -40,4 +40,18 @@ router.post("/activateTrip", asyncHandler(async (req: Request, res: Response) =>
   return res.status(200).send(trips);
 }));
 
+router.post("/updateTrip", asyncHandler(async (req: Request, res: Response) => {
+  const trip: Trip = req.body;
+  const trips = await tripController.updateTrip(trip, tripRepository);
+  return res.status(200).send(trips);
+}));
+
+router.post("/similarTrips", asyncHandler(async (req: Request, res: Response) => {
+  const { type, _id } = req.body;
+  const trips = await tripController.similarTrips(type, _id, tripRepository);
+  return res.status(200).send(trips);
+}));
+
+
+
 export default router;

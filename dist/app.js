@@ -25,7 +25,7 @@ app.use(express_1.default.json());
 app.use('/api/v1/users', userRoutes_1.default);
 app.use('/api/v1/trips', tripRoutes_1.default);
 app.use((error, req, res, next) => {
-    res.status(error.status).send(`Error: ${error.message}`);
+    res.status(error.status || 401).send(`Error: ${error.message}`);
 });
 exports.default = app;
 //# sourceMappingURL=app.js.map

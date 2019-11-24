@@ -1,4 +1,4 @@
-import { Trip } from "trip";
+import { Trip, mongoTrip } from "trip";
 import { typesOfTrips } from "../util/typesOfTrips";
 import moment from 'moment';
 import createError from 'http-errors';
@@ -51,3 +51,25 @@ export const activateTrip = async (_id: String, tripRepository: any) => {
   else
     throw createError(401, "No trip id is wrong");
 }
+
+export const updateTrip = async (trip: Trip, tripRepository: any) => {
+  const tripUpdated: mongoTrip = await tripRepository.updateTrip(trip);
+  if (tripUpdated != null)
+    return tripUpdated;
+  else
+    throw createError(401, "No trip id is wrong");
+}
+
+
+export const similarTrips = async (type: String, _id: String, tripRepository: any) => {
+  const trips: mongoTrip = await tripRepository.similarTrips(type, _id);
+  if (trips != null)
+    return trips;
+  else
+    throw createError(401, "No trips similars found");
+}
+
+
+
+
+
