@@ -33,3 +33,4 @@ export const checkPassw = async (email: String, password: String) => {
     return false;
   return await compare(password, user.password);
 }
+

@@ -1,10 +1,12 @@
 import { Router, Request, Response } from 'express';
 import * as userController from "../controllers/UserController";
 import * as userRepository from "../repositories/UserRepository";
+import * as tripRepository from "../repositories/TripRepository";
 import { check, sanitize, validationResult } from "express-validator";
 import { User } from 'user';
 import createError from 'http-errors';
 import asyncHandler from 'express-async-handler';
+
 
 
 const router = Router();
@@ -17,7 +19,8 @@ router.post("/login", [
   check("email", "Email is not valid").isEmail(),
   check("password", "Password must be at least 4 characters long").isLength({ min: 4 })],
   asyncHandler(async (req: Request, res: Response) => {
-    const token = await userController.login(req, userRepository);
+    const { email, password } = req.body;
+    const token = await userController.login(email, password, userRepository);
     res.status(200).send(token);
   }));
 
@@ -32,6 +35,14 @@ router.post("/signup", [
     const user: User = req.body;
     userController.signup(user, userRepository);
     res.status(200).send("success");
+  }));
+
+router.post("/buyTrip", [
+  check("email", "Email is not valid").isEmail()],
+  asyncHandler(async (req: Request, res: Response) => {
+    const { email, _id, numbersOfPersons } = req.body;
+    const trip = await userController.buyTrip(email, _id, numbersOfPersons, userRepository, tripRepository);
+    return res.status(200).send(trip);
   }));
 
 export default router;

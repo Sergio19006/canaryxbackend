@@ -1,8 +1,7 @@
-
 import { connectDatabase } from "../util/ConectionDatabase";
 import { tripData } from "../models/TripModel";
 import { Trip, mongoTrip } from "../types/trip";
-import { updateObjectsTrips, removeTrip } from '../util/updateTrips';
+import { updateObjectsTrips, removeTrip } from '../util/utilTrips';
 
 
 export const addTrip = async (trip: Trip) => {
@@ -31,6 +30,7 @@ export const addTrip = async (trip: Trip) => {
   });
   await data.save();
 }
+
 
 export const tripsByType = async (type: String) => {
   connectDatabase();
@@ -77,3 +77,23 @@ export const similarTrips = async (type: String, _id: String) => {
   trips = removeTrip(trips, tripsToEliminate._id);
   return trips;
 }
+
+export const addReview = async (email: String, review: String, _id: String) => {
+  connectDatabase();
+  let trip: mongoTrip = await tripData.findOne({ _id });
+  if (trip != null) {
+    const rev = JSON.stringify({ email, review });
+    trip.reviews.push(rev);
+    await trip.save();
+  }
+  return trip;
+}
+
+export const tripById = async (_id: String) => {
+  connectDatabase();
+  const trip: mongoTrip = await tripData.findOne({ _id });
+  return trip;
+}
+
+
+

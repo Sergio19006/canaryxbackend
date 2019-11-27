@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = require("jsonwebtoken");
 const http_errors_1 = __importDefault(require("http-errors"));
-exports.login = (req, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
+const buyTry_1 = require("../util/buyTry");
+exports.login = (email, password, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
     const isValid = yield userRepository.checkPassw(email, password);
     if (isValid) {
         let token = jsonwebtoken_1.sign({ id: email }, "supersecret", {
@@ -28,5 +28,12 @@ exports.login = (req, userRepository) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.signup = (user, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
     return yield userRepository.createUser(user);
+});
+exports.buyTrip = (email, _id, numberOfPersons, userRepository, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const trip = yield tripRepository.tripById(_id);
+    if (buyTry_1.handleParticipants(numberOfPersons, trip)) {
+        buyTry_1.sendMail(email);
+    }
+    return trip;
 });
 //# sourceMappingURL=UserController.js.map

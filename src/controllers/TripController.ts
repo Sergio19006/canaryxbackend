@@ -69,7 +69,11 @@ export const similarTrips = async (type: String, _id: String, tripRepository: an
     throw createError(401, "No trips similars found");
 }
 
-
-
-
+export const addReview = async (email: String, review: String, _id: String, tripRepository: any) => {
+  const trip: mongoTrip = await tripRepository.addReview(email, review, _id);
+  if (trip != null)
+    return trip;
+  else
+    throw createError(401, "No trips similars found");
+}
 

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ConectionDatabase_1 = require("../util/ConectionDatabase");
 const TripModel_1 = require("../models/TripModel");
-const updateTrips_1 = require("../util/updateTrips");
+const utilTrips_1 = require("../util/utilTrips");
 exports.addTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     const data = new TripModel_1.tripData({
@@ -66,7 +66,7 @@ exports.updateTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     let tripUpdated = yield TripModel_1.tripData.findOne({ title: trip.title });
     if (tripUpdated != null) {
-        tripUpdated = updateTrips_1.updateObjectsTrips(tripUpdated, trip);
+        tripUpdated = utilTrips_1.updateObjectsTrips(tripUpdated, trip);
         yield tripUpdated.save();
     }
     return tripUpdated;
@@ -75,7 +75,22 @@ exports.similarTrips = (type, _id) => __awaiter(void 0, void 0, void 0, function
     ConectionDatabase_1.connectDatabase();
     let trips = yield TripModel_1.tripData.find({ type: type, });
     let tripsToEliminate = yield TripModel_1.tripData.findOne({ _id });
-    trips = updateTrips_1.removeTrip(trips, tripsToEliminate._id);
+    trips = utilTrips_1.removeTrip(trips, tripsToEliminate._id);
     return trips;
+});
+exports.addReview = (email, review, _id) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    let trip = yield TripModel_1.tripData.findOne({ _id });
+    if (trip != null) {
+        const rev = JSON.stringify({ email, review });
+        trip.reviews.push(rev);
+        yield trip.save();
+    }
+    return trip;
+});
+exports.tripById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    const trip = yield TripModel_1.tripData.findOne({ _id });
+    return trip;
 });
 //# sourceMappingURL=TripRepository.js.map

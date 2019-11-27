@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const userController = __importStar(require("../controllers/UserController"));
 const userRepository = __importStar(require("../repositories/UserRepository"));
+const tripRepository = __importStar(require("../repositories/TripRepository"));
 const express_validator_1 = require("express-validator");
 const http_errors_1 = __importDefault(require("http-errors"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
@@ -33,7 +34,8 @@ router.post("/login", [
     express_validator_1.check("email", "Email is not valid").isEmail(),
     express_validator_1.check("password", "Password must be at least 4 characters long").isLength({ min: 4 })
 ], express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = yield userController.login(req, userRepository);
+    const { email, password } = req.body;
+    const token = yield userController.login(email, password, userRepository);
     res.status(200).send(token);
 })));
 router.post("/signup", [
@@ -47,6 +49,13 @@ router.post("/signup", [
     const user = req.body;
     userController.signup(user, userRepository);
     res.status(200).send("success");
+})));
+router.post("/buyTrip", [
+    express_validator_1.check("email", "Email is not valid").isEmail()
+], express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, _id, numbersOfPersons } = req.body;
+    const trip = yield userController.buyTrip(email, _id, numbersOfPersons, userRepository, tripRepository);
+    return res.status(200).send(trip);
 })));
 exports.default = router;
 //# sourceMappingURL=userRoutes.js.map

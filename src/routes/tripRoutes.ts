@@ -52,6 +52,10 @@ router.post("/similarTrips", asyncHandler(async (req: Request, res: Response) =>
   return res.status(200).send(trips);
 }));
 
-
+router.post("/addReview", asyncHandler(async (req: Request, res: Response) => {
+  const { email, review, _id } = req.body;
+  const trips = await tripController.addReview(email, review, _id, tripRepository);
+  return res.status(200).send(trips);
+}));
 
 export default router;

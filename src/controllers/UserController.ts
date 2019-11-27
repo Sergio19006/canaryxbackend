@@ -1,11 +1,11 @@
 import { sign } from "jsonwebtoken";
 import { User } from '../types/user';
-import { Request, Response } from "express";
 import createError from 'http-errors';
+import { mongoTrip } from "trip";
+import { sendMail, handleParticipants } from '../util/buyTry';
 
 
-export const login = async (req: Request, userRepository: any) => {
-    const { email, password } = req.body;
+export const login = async (email: String, password: String, userRepository: any) => {
     const isValid: boolean = await userRepository.checkPassw(email, password);
     if (isValid) {
         let token = sign({ id: email }, "supersecret", {
@@ -20,4 +20,15 @@ export const login = async (req: Request, userRepository: any) => {
 export const signup = async (user: User, userRepository: any) => {
     return await userRepository.createUser(user);
 };
+
+
+export const buyTrip = async (email: String, _id: String, numberOfPersons: Number, userRepository: any, tripRepository: any) => {
+    const trip: mongoTrip = await tripRepository.tripById(_id);
+    if (handleParticipants(numberOfPersons, trip)) {
+        sendMail(email);
+    }
+    return "";
+};
+
+
 

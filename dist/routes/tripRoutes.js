@@ -62,5 +62,10 @@ router.post("/similarTrips", express_async_handler_1.default((req, res) => __awa
     const trips = yield tripController.similarTrips(type, _id, tripRepository);
     return res.status(200).send(trips);
 })));
+router.post("/addReview", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, review, _id } = req.body;
+    const trips = yield tripController.addReview(email, review, _id, tripRepository);
+    return res.status(200).send(trips);
+})));
 exports.default = router;
 //# sourceMappingURL=tripRoutes.js.map
