@@ -25,7 +25,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
-dist/
+dist/*
 
 # nyc test coverage
 .nyc_output
@@ -38,8 +38,6 @@ bower_components
 
 # node-waf configuration
 .lock-wscript
-dist
-
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
