@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as tripController from "../controllers/TripController";
 import * as tripRepository from "../repositories/TripRepository";
-import { Trip } from 'trip';
+import { Trip, Review, ResponseReview } from 'trip';
 import asyncHandler from 'express-async-handler';
 
 const router = Router();
@@ -53,8 +53,26 @@ router.post("/similarTrips", asyncHandler(async (req: Request, res: Response) =>
 }));
 
 router.post("/addReview", asyncHandler(async (req: Request, res: Response) => {
-  const { email, review, _id } = req.body;
-  const trips = await tripController.addReview(email, review, _id, tripRepository);
+
+  const _id = req.body._id;
+  const review: Review = {
+    email: req.body.email,
+    rev: req.body.rev,
+    id: req.body.id,
+  };
+  const trips = await tripController.addReview(review, _id, tripRepository);
+  return res.status(200).send(trips);
+}));
+
+router.post("/responseReview", asyncHandler(async (req: Request, res: Response) => {
+
+  const _id = req.body._id;
+  const id = req.body.id;
+  const responseReview: ResponseReview = {
+    email: req.body.email,
+    rev: req.body.rev
+  };
+  const trips = await tripController.responseReview(responseReview, _id, id, tripRepository);
   return res.status(200).send(trips);
 }));
 

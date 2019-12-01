@@ -71,11 +71,19 @@ exports.similarTrips = (type, _id, tripRepository) => __awaiter(void 0, void 0, 
     else
         throw http_errors_1.default(401, "No trips similars found");
 });
-exports.addReview = (email, review, _id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
-    const trip = yield tripRepository.addReview(email, review, _id);
+exports.addReview = (review, _id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    review.id = '_' + Math.random().toString(36).substr(2, 9).toString();
+    const trip = yield tripRepository.addReview(review, _id);
     if (trip != null)
         return trip;
     else
         throw http_errors_1.default(401, "No trips similars found");
+});
+exports.responseReview = (responseReview, _id, id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const trip = yield tripRepository.responseReview(responseReview, _id, id);
+    if (trip != null)
+        return trip;
+    else
+        throw http_errors_1.default(401, "No trip found");
 });
 //# sourceMappingURL=TripController.js.map

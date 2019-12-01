@@ -9,7 +9,7 @@ export interface Trip {
   lunch: Boolean,
   hour: String,
   date: String,
-  reviews: Array<Object>,
+  reviews: Array<Review>,
   island: String,
   participants: Number,
   avgScore: Number,
@@ -32,7 +32,7 @@ export interface mongoTrip extends Document {
   lunch: Boolean,
   hour: String,
   date: String,
-  reviews: Array<Object>,
+  reviews: Array<Review>,
   island: String,
   participants: Number,
   avgScore: Number,
@@ -44,4 +44,16 @@ export interface mongoTrip extends Document {
   coordenates: String,
   owner: String,
   title: String
+}
+
+export interface Review {
+  email: String,
+  id: String,
+  rev: String,
+  response?: ResponseReview
+}
+
+export interface ResponseReview {
+  email: String,
+  rev: String,
 }

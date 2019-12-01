@@ -38,6 +38,11 @@ exports.addTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
     });
     yield data.save();
 });
+exports.tripById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    const trip = yield TripModel_1.tripData.findOne({ _id });
+    return trip;
+});
 exports.tripsByType = (type) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     const trips = yield TripModel_1.tripData.find({ type: type });
@@ -78,19 +83,39 @@ exports.similarTrips = (type, _id) => __awaiter(void 0, void 0, void 0, function
     trips = utilTrips_1.removeTrip(trips, tripsToEliminate._id);
     return trips;
 });
-exports.addReview = (email, review, _id) => __awaiter(void 0, void 0, void 0, function* () {
+exports.addReview = (review, _id) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     let trip = yield TripModel_1.tripData.findOne({ _id });
     if (trip != null) {
-        const rev = JSON.stringify({ email, review });
-        trip.reviews.push(rev);
+        trip.reviews.push(review);
         yield trip.save();
     }
     return trip;
 });
-exports.tripById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+exports.responseReview = (responseReview, _id, id) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
-    const trip = yield TripModel_1.tripData.findOne({ _id });
-    return trip;
+    let trip = yield TripModel_1.tripData.findOne({ _id });
+    if (trip != null) {
+        for (let review of trip.reviews) {
+        }
+        let reviewAdded;
+        let indexToRemove;
+        trip.reviews.forEach((review, index) => {
+            console.log("Estoy en el bucle", typeof (review), id);
+            review = JSON.parse(review.toString());
+            if (review.id == id) {
+                trip.reviews.splice(index, 1); //Aqui no esta borrando tiene un buggasoooo
+                const response = {
+                    email: responseReview.email,
+                    rev: responseReview.rev,
+                };
+                review.response = response;
+                reviewAdded = review;
+            }
+        });
+        trip.reviews.push(reviewAdded);
+        yield trip.save();
+        return trip;
+    }
 });
 //# sourceMappingURL=TripRepository.js.map

@@ -34,6 +34,6 @@ exports.buyTrip = (email, _id, numberOfPersons, userRepository, tripRepository) 
     if (buyTry_1.handleParticipants(numberOfPersons, trip)) {
         buyTry_1.sendMail(email);
     }
-    return trip;
+    return "Check your email for the pdf with your entri trip.";
 });
 //# sourceMappingURL=UserController.js.map

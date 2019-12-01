@@ -27,7 +27,7 @@ export const buyTrip = async (email: String, _id: String, numberOfPersons: Numbe
     if (handleParticipants(numberOfPersons, trip)) {
         sendMail(email);
     }
-    return "";
+    return "Check your email for the pdf with your entri trip.";
 };
 
 

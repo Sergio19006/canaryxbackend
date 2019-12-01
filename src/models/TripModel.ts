@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { mongoTrip } from "../types/trip";
+import { mongoTrip, Review } from "../types/trip";
 
 const tripSchema = new mongoose.Schema<mongoTrip>({
   transport: Boolean,

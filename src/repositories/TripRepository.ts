@@ -1,6 +1,6 @@
 import { connectDatabase } from "../util/ConectionDatabase";
 import { tripData } from "../models/TripModel";
-import { Trip, mongoTrip } from "../types/trip";
+import { Trip, mongoTrip, Review, ResponseReview } from "../types/trip";
 import { updateObjectsTrips, removeTrip } from '../util/utilTrips';
 
 
@@ -31,6 +31,12 @@ export const addTrip = async (trip: Trip) => {
   await data.save();
 }
 
+
+export const tripById = async (_id: String) => {
+  connectDatabase();
+  const trip: mongoTrip = await tripData.findOne({ _id });
+  return trip;
+}
 
 export const tripsByType = async (type: String) => {
   connectDatabase();
@@ -78,22 +84,41 @@ export const similarTrips = async (type: String, _id: String) => {
   return trips;
 }
 
-export const addReview = async (email: String, review: String, _id: String) => {
+export const addReview = async (review: Review, _id: String) => {
   connectDatabase();
   let trip: mongoTrip = await tripData.findOne({ _id });
   if (trip != null) {
-    const rev = JSON.stringify({ email, review });
-    trip.reviews.push(rev);
+    trip.reviews.push(review);
     await trip.save();
   }
   return trip;
 }
 
-export const tripById = async (_id: String) => {
+export const responseReview = async (responseReview: ResponseReview, _id: String, id: String) => {
   connectDatabase();
-  const trip: mongoTrip = await tripData.findOne({ _id });
-  return trip;
+  let trip: mongoTrip = await tripData.findOne({ _id });
+  if (trip != null) {
+    for (let review of trip.reviews) {
+
+    }
+
+    let reviewAdded;
+    trip.reviews.forEach((review, index) => {
+      review = JSON.parse(review.toString());
+      if (review.id == id) {
+        trip.reviews.splice(index, 1);
+        const response: ResponseReview = {
+          email: responseReview.email,
+          rev: responseReview.rev,
+        }
+        review.response = response;
+        reviewAdded = review;
+      }
+    });
+
+    trip.reviews.push(reviewAdded);
+    await trip.save();
+    return trip;
+  }
 }
-
-
 

@@ -63,8 +63,23 @@ router.post("/similarTrips", express_async_handler_1.default((req, res) => __awa
     return res.status(200).send(trips);
 })));
 router.post("/addReview", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, review, _id } = req.body;
-    const trips = yield tripController.addReview(email, review, _id, tripRepository);
+    const _id = req.body._id;
+    const review = {
+        email: req.body.email,
+        rev: req.body.rev,
+        id: req.body.id,
+    };
+    const trips = yield tripController.addReview(review, _id, tripRepository);
+    return res.status(200).send(trips);
+})));
+router.post("/responseReview", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const _id = req.body._id;
+    const id = req.body.id;
+    const responseReview = {
+        email: req.body.email,
+        rev: req.body.rev
+    };
+    const trips = yield tripController.responseReview(responseReview, _id, id, tripRepository);
     return res.status(200).send(trips);
 })));
 exports.default = router;

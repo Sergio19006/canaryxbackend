@@ -1,4 +1,4 @@
-import { Trip, mongoTrip } from "trip";
+import { Trip, mongoTrip, Review, ResponseReview } from "trip";
 import { typesOfTrips } from "../util/typesOfTrips";
 import moment from 'moment';
 import createError from 'http-errors';
@@ -69,11 +69,22 @@ export const similarTrips = async (type: String, _id: String, tripRepository: an
     throw createError(401, "No trips similars found");
 }
 
-export const addReview = async (email: String, review: String, _id: String, tripRepository: any) => {
-  const trip: mongoTrip = await tripRepository.addReview(email, review, _id);
+export const addReview = async (review: Review, _id: String, tripRepository: any) => {
+
+  review.id = '_' + Math.random().toString(36).substr(2, 9).toString();
+  const trip: mongoTrip = await tripRepository.addReview(review, _id);
   if (trip != null)
     return trip;
   else
     throw createError(401, "No trips similars found");
+}
+
+export const responseReview = async (responseReview: ResponseReview, _id: String, id: String, tripRepository: any) => {
+
+  const trip: mongoTrip = await tripRepository.responseReview(responseReview, _id, id);
+  if (trip != null)
+    return trip;
+  else
+    throw createError(401, "No trip found");
 }
 
