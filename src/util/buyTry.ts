@@ -23,7 +23,7 @@ export const sendMail = (email: String) => {
     service: 'gmail',
     auth: {
       user: 'nodemail212221212@gmail.com',
-      pass: ''
+      pass: 'node22$$'
     }
   })
 
