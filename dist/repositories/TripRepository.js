@@ -99,12 +99,10 @@ exports.responseReview = (responseReview, _id, id) => __awaiter(void 0, void 0, 
         for (let review of trip.reviews) {
         }
         let reviewAdded;
-        let indexToRemove;
         trip.reviews.forEach((review, index) => {
-            console.log("Estoy en el bucle", typeof (review), id);
             review = JSON.parse(review.toString());
             if (review.id == id) {
-                trip.reviews.splice(index, 1); //Aqui no esta borrando tiene un buggasoooo
+                trip.reviews.splice(index, 1);
                 const response = {
                     email: responseReview.email,
                     rev: responseReview.rev,

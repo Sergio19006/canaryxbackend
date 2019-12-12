@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const tripRoutes_1 = __importDefault(require("./routes/tripRoutes"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const cors_1 = __importDefault(require("cors"));
 // Create Express server
 const app = express_1.default();
@@ -22,6 +23,7 @@ const corsOptions = {
 };
 app.use(cors_1.default(corsOptions));
 app.use(express_1.default.json());
+app.use(express_fileupload_1.default());
 app.use('/api/v1/users', userRoutes_1.default);
 app.use('/api/v1/trips', tripRoutes_1.default);
 app.use((error, req, res, next) => {

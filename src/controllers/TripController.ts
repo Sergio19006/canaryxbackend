@@ -5,6 +5,8 @@ import createError from 'http-errors';
 
 
 export const addTrip = async (trip: Trip, tripRepository: any) => {
+
+
   return await tripRepository.addTrip(trip);
 }
 
@@ -87,4 +89,5 @@ export const responseReview = async (responseReview: ResponseReview, _id: String
   else
     throw createError(401, "No trip found");
 }
+
 

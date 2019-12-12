@@ -2,6 +2,7 @@ import express, { Response, Request } from "express";
 import path from "path";
 import userRouter from "./routes/userRoutes";
 import tripRouter from "./routes/tripRoutes";
+import fileUpload from 'express-fileupload';
 import cors from 'cors';
 
 // Create Express server
@@ -23,6 +24,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(fileUpload());
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripRouter);

@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as tripController from "../controllers/TripController";
 import * as tripRepository from "../repositories/TripRepository";
 import { Trip, Review, ResponseReview } from 'trip';
+import {File} from '../types/trip';
 import asyncHandler from 'express-async-handler';
 
 const router = Router();
@@ -75,5 +76,19 @@ router.post("/responseReview", asyncHandler(async (req: Request, res: Response) 
   const trips = await tripController.responseReview(responseReview, _id, id, tripRepository);
   return res.status(200).send(trips);
 }));
+
+router.post("/upload", asyncHandler(async (req: any, res: Response) => {
+  let imageFile: File[] = req.files.img;
+  for(const img of imageFile){
+    img.mv(`/home/codebay/data/${img.name}.jpg`, (err) => {
+      if (err) return res.status(500).send(err);
+    });
+  }
+  res.status(200).send("OK")
+}));
+
+
+
+
 
 export default router;

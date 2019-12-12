@@ -57,3 +57,15 @@ export interface ResponseReview {
   email: String,
   rev: String,
 }
+
+export interface File {
+  name: '222467.jpg',
+    data: Buffer,
+    size: Number,
+    encoding: String,
+    tempFilePath: String,
+    truncated: Boolean,
+    mimetype: String,
+    md5: String,
+    mv: Function
+  }
