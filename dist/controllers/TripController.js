@@ -15,7 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typesOfTrips_1 = require("../util/typesOfTrips");
 const moment_1 = __importDefault(require("moment"));
 const http_errors_1 = __importDefault(require("http-errors"));
-exports.addTrip = (trip, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+exports.addTrip = (trip, tripRepository, imageFiles) => __awaiter(void 0, void 0, void 0, function* () {
+    trip.images = [];
+    for (const img of imageFiles) {
+        img.mv(`/home/codebay/data/${img.name}.jpg`, (err) => {
+            if (err) {
+                throw http_errors_1.default(501, err);
+            }
+        });
+        trip.images.push(`/home/codebay/data/${img.name}.jpg`);
+        console.log(trip.images);
+    }
     return yield tripRepository.addTrip(trip);
 });
 exports.tripsByType = (type, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {

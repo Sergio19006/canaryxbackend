@@ -24,12 +24,13 @@ const tripController = __importStar(require("../controllers/TripController"));
 const tripRepository = __importStar(require("../repositories/TripRepository"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const router = express_1.Router();
-router.get("/", (res) => {
+router.get("/", (req, res) => {
     res.status(200).send("Bienvenido a Canary Experience");
 });
 router.post("/addTrip", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const trip = req.body;
-    yield tripController.addTrip(trip, tripRepository);
+    const files = req.files.img;
+    yield tripController.addTrip(trip, tripRepository, files);
     res.status(200).send("success");
 })));
 router.post("/tripsByType", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -81,17 +82,6 @@ router.post("/responseReview", express_async_handler_1.default((req, res) => __a
     };
     const trips = yield tripController.responseReview(responseReview, _id, id, tripRepository);
     return res.status(200).send(trips);
-})));
-router.post("/upload", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let imageFile = req.files.img;
-    console.log(imageFile);
-    for (const img of imageFile) {
-        img.mv(`/home/codebay/data/${img.name}.jpg`, (err) => {
-            if (err)
-                return res.status(500).send(err);
-        });
-    }
-    res.status(200).send("OK");
 })));
 exports.default = router;
 //# sourceMappingURL=tripRoutes.js.map

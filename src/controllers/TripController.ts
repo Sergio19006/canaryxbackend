@@ -1,12 +1,19 @@
-import { Trip, mongoTrip, Review, ResponseReview } from "trip";
+import { Trip, mongoTrip, Review, ResponseReview, File } from "trip";
 import { typesOfTrips } from "../util/typesOfTrips";
 import moment from 'moment';
 import createError from 'http-errors';
 
 
-export const addTrip = async (trip: Trip, tripRepository: any) => {
-
-
+export const addTrip = async (trip: Trip, tripRepository: any, imageFiles:File[]) => {
+  trip.images = [];
+  for(const img of imageFiles){
+    img.mv(`/home/codebay/data/${img.name}.jpg`, (err) => {
+      if(err){
+        throw createError(501, err);
+      }
+    });
+    trip.images.push(`/home/codebay/data/${img.name}.jpg`);
+  }
   return await tripRepository.addTrip(trip);
 }
 
