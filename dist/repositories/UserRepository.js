@@ -20,14 +20,16 @@ const saltRounds = 10;
 exports.createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     const encriptPass = bcrypt_1.hashSync(user.password, saltRounds);
+    console.log(user);
     const data = new UserModel_1.userData({
         email: user.email,
         nickname: user.nickname || "",
         password: encriptPass,
-        businnes: user.businnes || false,
+        business: Boolean(user.business) || false,
         logo: user.logo || "",
         description: user.description || ""
     });
+    console.log(data);
     try {
         yield data.save();
         return "success";

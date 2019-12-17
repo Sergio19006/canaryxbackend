@@ -59,7 +59,7 @@ export interface ResponseReview {
 }
 
 export interface File {
-  name: '222467.jpg',
+  name: String,
     data: Buffer,
     size: Number,
     encoding: String,

@@ -1,7 +1,7 @@
 import { sign } from "jsonwebtoken";
 import { User } from '../types/user';
 import createError from 'http-errors';
-import { mongoTrip } from "trip";
+import { mongoTrip, File } from "trip";
 import { sendMail, handleParticipants } from '../util/buyTry';
 
 
@@ -17,7 +17,19 @@ export const login = async (email: String, password: String, userRepository: any
         throw createError(411, "Login was wrong");
 }
 
-export const signup = async (user: User, userRepository: any) => {
+export const signup = async (user: User, imgObject: File, userRepository: any) => {
+    if(imgObject != undefined){
+        const img = imgObject['img'];
+        try{
+            img.mv(`/home/codebay/data/users/${img.name}.jpg`, (err) => {
+                if(err)
+                    throw createError(501, err);
+            });
+            user.logo = `/home/codebay/data/users/${img.name}.jpg`;
+        }catch(err) {
+            console.log(err);
+        };
+    }
     return await userRepository.createUser(user);
 };
 

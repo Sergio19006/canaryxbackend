@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema<mongoUser>({
     email: { type: String, unique: true },
     nickname: String,
     password: String,
-    businnes: Boolean,
+    business: Boolean,
     logo: String,
     description: String
 }, { collection: "Users" });

@@ -13,16 +13,15 @@ export const createUser = async (user: User) => {
     email: user.email,
     nickname: user.nickname || "",
     password: encriptPass,
-    businnes: user.businnes || false,
+    business: Boolean(user.business) || false,
     logo: user.logo || "",
     description: user.description || ""
   });
-
   try {
     await data.save();
     return "success";
   } catch (err) {
-    throw createError(411, "CreateUser was wrong");
+      throw createError(411, "CreateUser was wrong");
   }
 }
 

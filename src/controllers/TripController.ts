@@ -6,8 +6,9 @@ import createError from 'http-errors';
 
 export const addTrip = async (trip: Trip, tripRepository: any, imageFiles:File[]) => {
   trip.images = [];
+  console.log("holaaa");
   for(const img of imageFiles){
-    img.mv(`/home/codebay/data/${img.name}.jpg`, (err) => {
+    img.mv(`/home/codebay/data/trips/${img.name}.jpg`, (err) => {
       if(err){
         throw createError(501, err);
       }

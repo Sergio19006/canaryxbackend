@@ -4,6 +4,7 @@ import * as userRepository from "../repositories/UserRepository";
 import * as tripRepository from "../repositories/TripRepository";
 import { check, sanitize, validationResult } from "express-validator";
 import { User } from 'user';
+import { File } from '../types/trip';
 import createError from 'http-errors';
 import asyncHandler from 'express-async-handler';
 
@@ -27,13 +28,15 @@ router.post("/login", [
 router.post("/signup", [
   check("email", "Email is not valid").isEmail(),
   check("password", "Password must be at least 4 characters long").isLength({ min: 4 })],
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req: any, res: Response) => {
     const error = validationResult(req);
-    if (!error.isEmpty()) {
+    
+    if (!error.isEmpty()) 
       throw createError(411, "Signup was wrong");
-    }
+  
     const user: User = req.body;
-    userController.signup(user, userRepository);
+    const img: File = req.files;
+    userController.signup(user, img, userRepository);
     res.status(200).send("success");
   }));
 

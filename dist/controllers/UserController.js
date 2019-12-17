@@ -26,7 +26,21 @@ exports.login = (email, password, userRepository) => __awaiter(void 0, void 0, v
     else
         throw http_errors_1.default(411, "Login was wrong");
 });
-exports.signup = (user, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
+exports.signup = (user, imgObject, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    if (imgObject != undefined) {
+        const img = imgObject['img'];
+        try {
+            img.mv(`/home/codebay/data/users/${img.name}.jpg`, (err) => {
+                if (err)
+                    throw http_errors_1.default(501, err);
+            });
+            user.logo = `/home/codebay/data/users/${img.name}.jpg`;
+        }
+        catch (err) {
+            console.log(err);
+        }
+        ;
+    }
     return yield userRepository.createUser(user);
 });
 exports.buyTrip = (email, _id, numberOfPersons, userRepository, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {

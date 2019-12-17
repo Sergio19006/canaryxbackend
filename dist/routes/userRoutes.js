@@ -43,11 +43,11 @@ router.post("/signup", [
     express_validator_1.check("password", "Password must be at least 4 characters long").isLength({ min: 4 })
 ], express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const error = express_validator_1.validationResult(req);
-    if (!error.isEmpty()) {
+    if (!error.isEmpty())
         throw http_errors_1.default(411, "Signup was wrong");
-    }
     const user = req.body;
-    userController.signup(user, userRepository);
+    const img = req.files;
+    userController.signup(user, img, userRepository);
     res.status(200).send("success");
 })));
 router.post("/buyTrip", [
