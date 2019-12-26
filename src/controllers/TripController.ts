@@ -9,6 +9,7 @@ export const addTrip = async (trip: Trip, tripRepository: any, imageFiles:File[]
   console.log("holaaa");
   for(const img of imageFiles){
     img.mv(`/home/codebay/data/trips/${img.name}.jpg`, (err) => {
+      console.log("1que pasa aqui")
       if(err){
         throw createError(501, err);
       }

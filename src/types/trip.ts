@@ -20,7 +20,8 @@ export interface Trip {
   price: Number,
   coordenates: String,
   owner: String,
-  title: String
+  title: String,
+  description: String
 };
 
 export interface mongoTrip extends Document {
@@ -43,7 +44,8 @@ export interface mongoTrip extends Document {
   price: Number,
   coordenates: String,
   owner: String,
-  title: String
+  title: String,
+  description: String
 }
 
 export interface Review {

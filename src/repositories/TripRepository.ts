@@ -26,7 +26,8 @@ export const addTrip = async (trip: Trip) => {
     price: trip.price,
     cordenates: trip.conditions,
     owner: trip.owner,
-    title: trip.title
+    title: trip.title,
+    description: trip.description
   });
   await data.save();
 }

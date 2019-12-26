@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import * as userController from "../controllers/UserController";
 import * as userRepository from "../repositories/UserRepository";
 import * as tripRepository from "../repositories/TripRepository";
-import { check, sanitize, validationResult } from "express-validator";
+import { check, validationResult } from "express-validator";
 import { User } from 'user';
 import { File } from '../types/trip';
 import createError from 'http-errors';
@@ -44,6 +44,7 @@ router.post("/buyTrip", [
   check("email", "Email is not valid").isEmail()],
   asyncHandler(async (req: Request, res: Response) => {
     const { email, _id, numbersOfPersons } = req.body;
+    console.log(req.body)
     const trip = await userController.buyTrip(email, _id, numbersOfPersons, userRepository, tripRepository);
     return res.status(200).send(trip);
   }));

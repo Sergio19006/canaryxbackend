@@ -21,7 +21,8 @@ const tripSchema = new mongoose.Schema<mongoTrip>({
   price: Number,
   coordenates: String,
   owner: String,
-  title: String
+  title: String,
+  description: String
 }, { collection: "Trips" });
 
 export const tripData = mongoose.model<mongoTrip>("Trip", tripSchema);

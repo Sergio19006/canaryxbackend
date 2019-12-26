@@ -34,7 +34,8 @@ exports.addTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
         price: trip.price,
         cordenates: trip.conditions,
         owner: trip.owner,
-        title: trip.title
+        title: trip.title,
+        description: trip.description
     });
     yield data.save();
 });

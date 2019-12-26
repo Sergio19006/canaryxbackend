@@ -24,7 +24,8 @@ const tripSchema = new mongoose_1.default.Schema({
     price: Number,
     coordenates: String,
     owner: String,
-    title: String
+    title: String,
+    description: String
 }, { collection: "Trips" });
 exports.tripData = mongoose_1.default.model("Trip", tripSchema);
 //# sourceMappingURL=TripModel.js.map

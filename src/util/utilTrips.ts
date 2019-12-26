@@ -19,6 +19,7 @@ export const updateObjectsTrips = (oldTrip: mongoTrip, newTrip: Trip) => {
   oldTrip.conditions = newTrip.conditions;
   oldTrip.price = newTrip.price;
   oldTrip.coordenates = newTrip.coordenates;
+  oldTrip.description = newTrip.description;
   return oldTrip;
 }
 
