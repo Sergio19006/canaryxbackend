@@ -44,7 +44,6 @@ router.post("/buyTrip", [
   check("email", "Email is not valid").isEmail()],
   asyncHandler(async (req: Request, res: Response) => {
     const { email, _id, numbersOfPersons } = req.body;
-    console.log(req.body)
     const trip = await userController.buyTrip(email, _id, numbersOfPersons, userRepository, tripRepository);
     return res.status(200).send(trip);
   }));

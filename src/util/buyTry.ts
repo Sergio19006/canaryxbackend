@@ -2,15 +2,16 @@ import nodemailer from "nodemailer";
 import { mongoTrip } from "../types/trip";
 import createError from "http-errors";
 import pdf from "html-pdf";
-import QRCode from 'qrcode';
+import QRCode from "qrcode";
+import fs from "fs";
 
 const generateQR = async text => {
   try {
     return await QRCode.toDataURL(text);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};
 
 export const handleParticipants = async (
   numberOfPersons: Number,
@@ -36,9 +37,6 @@ export const sendMail = async (email: String) => {
     }
   });
 
-
-
-
   const mailOptions = {
     from: "nodemail212221212@gmail.com",
     to: email.toString(),
@@ -57,8 +55,14 @@ Canary Xperience Team`,
     ]
   };
 
-  const path="http://www.motoradn.com/wp-content/uploads/2017/10/Como-hacer-fotos-de-motos-en-accci%C3%B3n-MOTORADN-18-1024x640.jpg"
-  const qrcode = await generateQR(`Punchase Confirmation of ${email}`);
+  const path = "/home/codebay/data/qrcode/out.png";
+  const qrcode: String = await generateQR(`Punchase Confirmation of ${email}`);
+
+  fs.writeFileSync(
+    "/home/codebay/data/qrcode/out.png",
+    qrcode.split(",")[1],
+    "base64"
+  );
 
   const contenido = `
   <div id="pageHeader" style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
@@ -90,13 +94,10 @@ Canary Xperience Team`,
     .toFile(`/home/codebay/data/pdfs/Trip Ticket ${email}.pdf`, (err, res) => {
       if (err) console.log(err);
       else {
-        // transport.sendMail(mailOptions, (error, info) => {
-        //   if (!error)
-        //        console.log("Email sent: ", info.response);
-        //   else
-        //     console.log("Errooooor", error);
-        //});
-        console.log("pa alante");
+        transport.sendMail(mailOptions, (error, info) => {
+          if (!error) console.log("Email sent: ", info.response);
+          else console.log("Errooooor", error);
+        });
       }
     });
 };

@@ -17,10 +17,9 @@ const moment_1 = __importDefault(require("moment"));
 const http_errors_1 = __importDefault(require("http-errors"));
 exports.addTrip = (trip, tripRepository, imageFiles) => __awaiter(void 0, void 0, void 0, function* () {
     trip.images = [];
-    console.log("holaaa");
+    console.log(JSON.stringify(trip.coordenates));
     for (const img of imageFiles) {
         img.mv(`/home/codebay/data/trips/${img.name}.jpg`, (err) => {
-            console.log("1que pasa aqui");
             if (err) {
                 throw http_errors_1.default(501, err);
             }

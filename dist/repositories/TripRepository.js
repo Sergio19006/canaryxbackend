@@ -32,7 +32,7 @@ exports.addTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
         images: trip.images,
         active: trip.active,
         price: trip.price,
-        cordenates: trip.conditions,
+        coordenates: trip.coordenates || "holi",
         owner: trip.owner,
         title: trip.title,
         description: trip.description

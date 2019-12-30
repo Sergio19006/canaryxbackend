@@ -24,7 +24,7 @@ export const addTrip = async (trip: Trip) => {
     images: trip.images,
     active: trip.active,
     price: trip.price,
-    cordenates: trip.conditions,
+    coordenates: trip.coordenates || "holi",
     owner: trip.owner,
     title: trip.title,
     description: trip.description

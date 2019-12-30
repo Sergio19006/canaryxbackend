@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { Document } from 'mongoose';
 
 export interface Trip {
   transport: Boolean,
