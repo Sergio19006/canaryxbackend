@@ -32,10 +32,10 @@ exports.addTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
         images: trip.images,
         active: trip.active,
         price: trip.price,
-        coordenates: trip.coordenates || "holi",
+        coordenates: trip.coordenates,
         owner: trip.owner,
         title: trip.title,
-        description: trip.description
+        description: trip.description,
     });
     yield data.save();
 });
@@ -46,17 +46,22 @@ exports.tripById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.tripsByType = (type) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
-    const trips = yield TripModel_1.tripData.find({ type: type });
+    const trips = yield TripModel_1.tripData.find({ type });
     return trips;
 });
 exports.tripsByPlace = (place) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
-    const trips = yield TripModel_1.tripData.find({ place, active: true });
+    const trips = yield TripModel_1.tripData.find({ place });
     return trips;
 });
 exports.tripsByDate = (date) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
-    const trips = yield TripModel_1.tripData.find({ date, active: true });
+    const trips = yield TripModel_1.tripData.find({ date });
+    return trips;
+});
+exports.tripsByOwner = (owner) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    const trips = yield TripModel_1.tripData.find({ owner });
     return trips;
 });
 exports.activateTrip = (_id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -70,7 +75,7 @@ exports.activateTrip = (_id) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.updateTrip = (trip) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
-    let tripUpdated = yield TripModel_1.tripData.findOne({ title: trip.title });
+    let tripUpdated = yield TripModel_1.tripData.findOne({ _id: trip._id });
     if (tripUpdated != null) {
         tripUpdated = utilTrips_1.updateObjectsTrips(tripUpdated, trip);
         yield tripUpdated.save();
@@ -116,5 +121,19 @@ exports.responseReview = (responseReview, _id, id) => __awaiter(void 0, void 0, 
         yield trip.save();
         return trip;
     }
+});
+exports.findTrips = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    //Esto no esta terminado
+    if (query.place == null && query.date != undefined) {
+        let trips = yield TripModel_1.tripData.find({ date: query.date });
+        return trips;
+    }
+    if (query.place != null && query.date != undefined) {
+        let trips = yield TripModel_1.tripData.find({ place: query.place, date: query.date });
+        return trips;
+    }
+    let trips = yield TripModel_1.tripData.find({});
+    return trips;
 });
 //# sourceMappingURL=TripRepository.js.map

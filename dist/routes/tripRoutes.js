@@ -29,14 +29,18 @@ router.get("/", (req, res) => {
 });
 router.post("/addTrip", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const trip = req.body;
-    const files = req.files.img;
-    yield tripController.addTrip(trip, tripRepository, files);
+    yield tripController.addTrip(trip, tripRepository);
     res.status(200).send("success");
 })));
 router.post("/tripsByType", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { type } = req.body;
     const trips = yield tripController.tripsByType(type, tripRepository);
     return res.status(200).send(trips);
+})));
+router.post("/tripById", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.body;
+    const trip = yield tripController.tripById(id, tripRepository);
+    return res.status(200).send(trip);
 })));
 router.post("/tripsByPlace", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { place } = req.body;
@@ -55,7 +59,8 @@ router.post("/activateTrip", express_async_handler_1.default((req, res) => __awa
 })));
 router.post("/updateTrip", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const trip = req.body;
-    const trips = yield tripController.updateTrip(trip, tripRepository);
+    const files = req.files.img;
+    const trips = yield tripController.updateTrip(trip, files, tripRepository);
     return res.status(200).send(trips);
 })));
 router.post("/similarTrips", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -81,6 +86,16 @@ router.post("/responseReview", express_async_handler_1.default((req, res) => __a
         rev: req.body.rev
     };
     const trips = yield tripController.responseReview(responseReview, _id, id, tripRepository);
+    return res.status(200).send(trips);
+})));
+router.post("/tripsByOwner", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { owner } = req.body;
+    const trips = yield tripController.tripsByOwner(owner, tripRepository);
+    return res.status(200).send(trips);
+})));
+router.post("/findtrips", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = req.body;
+    const trips = yield tripController.findTrips(query, tripRepository);
     return res.status(200).send(trips);
 })));
 exports.default = router;

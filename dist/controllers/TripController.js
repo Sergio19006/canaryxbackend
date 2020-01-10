@@ -15,17 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typesOfTrips_1 = require("../util/typesOfTrips");
 const moment_1 = __importDefault(require("moment"));
 const http_errors_1 = __importDefault(require("http-errors"));
-exports.addTrip = (trip, tripRepository, imageFiles) => __awaiter(void 0, void 0, void 0, function* () {
-    trip.images = [];
-    console.log(JSON.stringify(trip.coordenates));
-    for (const img of imageFiles) {
-        img.mv(`/home/codebay/data/trips/${img.name}.jpg`, (err) => {
-            if (err) {
-                throw http_errors_1.default(501, err);
-            }
-        });
-        trip.images.push(`/home/codebay/data/${img.name}.jpg`);
-    }
+exports.addTrip = (trip, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
     return yield tripRepository.addTrip(trip);
 });
 exports.tripsByType = (type, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,6 +28,13 @@ exports.tripsByType = (type, tripRepository) => __awaiter(void 0, void 0, void 0
     }
     throw http_errors_1.default(411, "Type was wrong");
 });
+exports.tripById = (id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(id);
+    const trips = yield tripRepository.tripById(id);
+    if (trips != undefined)
+        return trips;
+    throw http_errors_1.default(411, "Id was wrong");
+});
 exports.tripsByPlace = (place, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
     const trips = yield tripRepository.tripsByPlace(place);
     if (trips.length > 0)
@@ -46,7 +43,7 @@ exports.tripsByPlace = (place, tripRepository) => __awaiter(void 0, void 0, void
         throw http_errors_1.default(401, "No trips actives in this place");
 });
 exports.tripsByDate = (date, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
-    if (moment_1.default(date, 'MM-DD-YYYY', true).isValid()) {
+    if (moment_1.default(date, "YYYY-MM-DD", true).isValid()) {
         const trips = yield tripRepository.tripsByDate(date);
         if (trips.length > 0)
             return trips;
@@ -55,6 +52,13 @@ exports.tripsByDate = (date, tripRepository) => __awaiter(void 0, void 0, void 0
     }
     else
         throw http_errors_1.default(401, "Error in format Date");
+});
+exports.tripsByOwner = (owner, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const trips = yield tripRepository.tripsByOwner(owner);
+    if (trips.length > 0)
+        return trips;
+    else
+        throw http_errors_1.default(401, "No trips actives for this owner");
 });
 exports.activateTrip = (_id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
     if (_id.length == 24) {
@@ -67,7 +71,16 @@ exports.activateTrip = (_id, tripRepository) => __awaiter(void 0, void 0, void 0
     else
         throw http_errors_1.default(401, "No trip id is wrong");
 });
-exports.updateTrip = (trip, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateTrip = (trip, imageFiles, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    trip.images = [];
+    for (const img of imageFiles) {
+        img.mv(`/home/codebay/data/trips/${img.name}.jpg`, err => {
+            if (err) {
+                throw http_errors_1.default(501, err);
+            }
+        });
+        trip.images.push(`/home/codebay/data/${img.name}.jpg`);
+    }
     const tripUpdated = yield tripRepository.updateTrip(trip);
     if (tripUpdated != null)
         return tripUpdated;
@@ -82,7 +95,12 @@ exports.similarTrips = (type, _id, tripRepository) => __awaiter(void 0, void 0, 
         throw http_errors_1.default(401, "No trips similars found");
 });
 exports.addReview = (review, _id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
-    review.id = '_' + Math.random().toString(36).substr(2, 9).toString();
+    review.id =
+        "_" +
+            Math.random()
+                .toString(36)
+                .substr(2, 9)
+                .toString();
     const trip = yield tripRepository.addReview(review, _id);
     if (trip != null)
         return trip;
@@ -93,6 +111,13 @@ exports.responseReview = (responseReview, _id, id, tripRepository) => __awaiter(
     const trip = yield tripRepository.responseReview(responseReview, _id, id);
     if (trip != null)
         return trip;
+    else
+        throw http_errors_1.default(401, "No trip found");
+});
+exports.findTrips = (query, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const trips = yield tripRepository.findTrips(query);
+    if (trips != null)
+        return trips;
     else
         throw http_errors_1.default(401, "No trip found");
 });

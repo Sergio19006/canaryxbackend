@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as tripController from "../controllers/TripController";
 import * as tripRepository from "../repositories/TripRepository";
-import { Trip, Review, ResponseReview, File } from "trip";
+import { Trip, Review, ResponseReview, File, Query } from "trip";
 
 import asyncHandler from 'express-async-handler';
 
@@ -11,10 +11,9 @@ router.get("/", (req:Request, res: Response) => {
   res.status(200).send("Bienvenido a Canary Experience");
 });
 
-router.post("/addTrip", asyncHandler(async (req: any, res: Response) => {
+router.post("/addTrip", asyncHandler(async (req: Request, res: Response) => {
   const trip: Trip = req.body;
-  const files: File[] = req.files.img;
-  await tripController.addTrip(trip, tripRepository, files);
+  await tripController.addTrip(trip, tripRepository);
   res.status(200).send("success");
 }));
 
@@ -22,6 +21,12 @@ router.post("/tripsByType", asyncHandler(async (req: Request, res: Response) => 
   const { type } = req.body;
   const trips = await tripController.tripsByType(type, tripRepository);
   return res.status(200).send(trips);
+}));
+
+router.post("/tripById", asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.body;
+  const trip = await tripController.tripById(id, tripRepository);
+  return res.status(200).send(trip);
 }));
 
 router.post("/tripsByPlace", asyncHandler(async (req: Request, res: Response) => {
@@ -32,6 +37,7 @@ router.post("/tripsByPlace", asyncHandler(async (req: Request, res: Response) =>
 
 router.post("/tripsByDate", asyncHandler(async (req: Request, res: Response) => {
   const { date } = req.body;
+
   const trips = await tripController.tripsByDate(date, tripRepository);
   return res.status(200).send(trips);
 }));
@@ -42,9 +48,10 @@ router.post("/activateTrip", asyncHandler(async (req: Request, res: Response) =>
   return res.status(200).send(trips);
 }));
 
-router.post("/updateTrip", asyncHandler(async (req: Request, res: Response) => {
+router.post("/updateTrip", asyncHandler(async (req: any, res: Response) => {
   const trip: Trip = req.body;
-  const trips = await tripController.updateTrip(trip, tripRepository);
+  const files: File[] = req.files.img;
+  const trips = await tripController.updateTrip(trip,files, tripRepository);
   return res.status(200).send(trips);
 }));
 
@@ -75,6 +82,20 @@ router.post("/responseReview", asyncHandler(async (req: Request, res: Response) 
     rev: req.body.rev
   };
   const trips = await tripController.responseReview(responseReview, _id, id, tripRepository);
+  return res.status(200).send(trips);
+}));
+
+router.post("/tripsByOwner", asyncHandler(async (req: Request, res: Response) => {
+
+  const { owner} = req.body; 
+  const trips = await tripController.tripsByOwner(owner, tripRepository);
+  return res.status(200).send(trips);
+}));
+
+router.post("/findtrips", asyncHandler(async (req: Request, res: Response) => {
+
+  const query: Query = req.body; 
+  const trips = await tripController.findTrips(query, tripRepository);
   return res.status(200).send(trips);
 }));
 

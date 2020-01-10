@@ -59,7 +59,7 @@ Canary Xperience Team`,
   const qrcode: String = await generateQR(`Punchase Confirmation of ${email}`);
 
   fs.writeFileSync(
-    "/home/codebay/data/qrcode/out.png",
+    `/home/codebay/data/qrcode/${email}out.png`,
     qrcode.split(",")[1],
     "base64"
   );

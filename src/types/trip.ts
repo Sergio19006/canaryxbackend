@@ -21,7 +21,8 @@ export interface Trip {
   coordenates: String,
   owner: String,
   title: String,
-  description: String
+  description: String,
+  _id: String
 };
 
 export interface mongoTrip extends Document {
@@ -61,7 +62,7 @@ export interface ResponseReview {
 }
 
 export interface File {
-  name: String,
+    name: String,
     data: Buffer,
     size: Number,
     encoding: String,
@@ -70,4 +71,10 @@ export interface File {
     mimetype: String,
     md5: String,
     mv: Function
+  }
+
+  export interface Query{
+    date: String,
+    place: String,
+    guests: Number
   }

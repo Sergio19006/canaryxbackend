@@ -14,12 +14,13 @@ export const updateObjectsTrips = (oldTrip: mongoTrip, newTrip: Trip) => {
   oldTrip.date = newTrip.date;
   oldTrip.reviews = newTrip.reviews;
   oldTrip.island = newTrip.island;
-  oldTrip.participants = newTrip.participants;
+  oldTrip.participants = newTrip.participants || 0;
   oldTrip.avgScore = newTrip.avgScore;
-  oldTrip.conditions = newTrip.conditions;
+  oldTrip.conditions = newTrip.conditions.toString().split(',');
   oldTrip.price = newTrip.price;
   oldTrip.coordenates = newTrip.coordenates;
   oldTrip.description = newTrip.description;
+  oldTrip.title = newTrip.title;
   return oldTrip;
 }
 
