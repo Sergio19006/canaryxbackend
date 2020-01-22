@@ -53,8 +53,9 @@ router.post("/signup", [
 router.post("/buyTrip", [
     express_validator_1.check("email", "Email is not valid").isEmail()
 ], express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, _id, numbersOfPersons } = req.body;
-    const trip = yield userController.buyTrip(email, _id, numbersOfPersons, userRepository, tripRepository);
+    const { email, _id, numberOfPersons } = req.body;
+    console.log(req.body);
+    const trip = yield userController.buyTrip(email, _id, numberOfPersons, userRepository, tripRepository);
     return res.status(200).send(trip);
 })));
 exports.default = router;

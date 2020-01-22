@@ -30,11 +30,11 @@ exports.signup = (user, imgObject, userRepository) => __awaiter(void 0, void 0, 
     if (imgObject != undefined) {
         const img = imgObject['img'];
         try {
-            img.mv(`/home/codebay/data/users/${img.name}.jpg`, (err) => {
+            img.mv(`/home/sergio/data/users/${img.name}.jpg`, (err) => {
                 if (err)
                     throw http_errors_1.default(501, err);
             });
-            user.logo = `/home/codebay/data/users/${img.name}.jpg`;
+            user.logo = `/home/sergio/data/users/${img.name}.jpg`;
         }
         catch (err) {
             console.log(err);

@@ -30,10 +30,10 @@ router.post("/signup", [
   check("password", "Password must be at least 4 characters long").isLength({ min: 4 })],
   asyncHandler(async (req: any, res: Response) => {
     const error = validationResult(req);
-    
-    if (!error.isEmpty()) 
+
+    if (!error.isEmpty())
       throw createError(411, "Signup was wrong");
-  
+
     const user: User = req.body;
     const img: File = req.files;
     userController.signup(user, img, userRepository);
@@ -43,8 +43,8 @@ router.post("/signup", [
 router.post("/buyTrip", [
   check("email", "Email is not valid").isEmail()],
   asyncHandler(async (req: Request, res: Response) => {
-    const { email, _id, numbersOfPersons } = req.body;
-    const trip = await userController.buyTrip(email, _id, numbersOfPersons, userRepository, tripRepository);
+    const { email, _id, numberOfPersons } = req.body;
+    const trip = await userController.buyTrip(email, _id, numberOfPersons, userRepository, tripRepository);
     return res.status(200).send(trip);
   }));
 

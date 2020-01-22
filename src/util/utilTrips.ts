@@ -4,6 +4,7 @@ import { Trip, mongoTrip } from '../types/trip'
 export const updateObjectsTrips = (oldTrip: mongoTrip, newTrip: Trip) => {
 
   oldTrip.transport = newTrip.transport;
+  oldTrip.images = newTrip.images;
   oldTrip.active = newTrip.active;
   oldTrip.place = newTrip.place;
   oldTrip.type = newTrip.type;

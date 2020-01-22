@@ -18,15 +18,15 @@ export const login = async (email: String, password: String, userRepository: any
 }
 
 export const signup = async (user: User, imgObject: File, userRepository: any) => {
-    if(imgObject != undefined){
+    if (imgObject != undefined) {
         const img = imgObject['img'];
-        try{
-            img.mv(`/home/codebay/data/users/${img.name}.jpg`, (err) => {
-                if(err)
+        try {
+            img.mv(`/home/sergio/data/users/${img.name}.jpg`, (err) => {
+                if (err)
                     throw createError(501, err);
             });
-            user.logo = `/home/codebay/data/users/${img.name}.jpg`;
-        }catch(err) {
+            user.logo = `/home/sergio/data/users/${img.name}.jpg`;
+        } catch (err) {
             console.log(err);
         };
     }
@@ -39,6 +39,7 @@ export const buyTrip = async (email: String, _id: String, numberOfPersons: Numbe
     if (handleParticipants(numberOfPersons, trip)) {
         sendMail(email);
     }
+
     return "Check your email for the pdf with your entri trip.";
 };
 

@@ -102,8 +102,6 @@ exports.responseReview = (responseReview, _id, id) => __awaiter(void 0, void 0, 
     ConectionDatabase_1.connectDatabase();
     let trip = yield TripModel_1.tripData.findOne({ _id });
     if (trip != null) {
-        for (let review of trip.reviews) {
-        }
         let reviewAdded;
         trip.reviews.forEach((review, index) => {
             review = JSON.parse(review.toString());

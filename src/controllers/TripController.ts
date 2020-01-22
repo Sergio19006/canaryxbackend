@@ -17,7 +17,6 @@ export const tripsByType = async (type: String, tripRepository: any) => {
 };
 
 export const tripById = async (id: String, tripRepository: any) => {
-  console.log(id);
   const trips = await tripRepository.tripById(id);
   if (trips != undefined) return trips;
   throw createError(411, "Id was wrong");
@@ -58,12 +57,12 @@ export const updateTrip = async (
 ) => {
   trip.images = [];
   for (const img of imageFiles) {
-    img.mv(`/home/codebay/data/trips/${img.name}.jpg`, err => {
+    img.mv(`/home/sergio/data/trips/${img.name}`, err => {
       if (err) {
         throw createError(501, err);
       }
     });
-    trip.images.push(`/home/codebay/data/${img.name}.jpg`);
+    trip.images.push(`/home/sergio/data/trips/${img.name}`);
   }
   const tripUpdated: mongoTrip = await tripRepository.updateTrip(trip);
   if (tripUpdated != null) return tripUpdated;

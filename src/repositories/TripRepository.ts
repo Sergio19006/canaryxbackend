@@ -41,7 +41,7 @@ export const tripById = async (_id: String) => {
 
 export const tripsByType = async (type: String) => {
   connectDatabase();
-  const trips: Array<mongoTrip> = await tripData.find({ type});
+  const trips: Array<mongoTrip> = await tripData.find({ type });
   return trips;
 }
 
@@ -58,7 +58,7 @@ export const tripsByDate = async (date: String) => {
 }
 
 export const tripsByOwner = async (owner: String) => {
-  connectDatabase(); 
+  connectDatabase();
   const trips: Array<mongoTrip> = await tripData.find({ owner });
   return trips;
 }
@@ -105,10 +105,6 @@ export const responseReview = async (responseReview: ResponseReview, _id: String
   connectDatabase();
   let trip: mongoTrip = await tripData.findOne({ _id });
   if (trip != null) {
-    for (let review of trip.reviews) {
-
-    }
-
     let reviewAdded;
     trip.reviews.forEach((review, index) => {
       review = JSON.parse(review.toString());
@@ -132,12 +128,12 @@ export const responseReview = async (responseReview: ResponseReview, _id: String
 export const findTrips = async (query: Query) => {
   connectDatabase();
   //Esto no esta terminado
-  if(query.place == null && query.date != undefined){
-    let trips: mongoTrip[] = await tripData.find({date: query.date});
+  if (query.place == null && query.date != undefined) {
+    let trips: mongoTrip[] = await tripData.find({ date: query.date });
     return trips;
   }
-  if(query.place != null && query.date != undefined){
-    let trips: mongoTrip[] = await tripData.find({ place: query.place, date: query.date});
+  if (query.place != null && query.date != undefined) {
+    let trips: mongoTrip[] = await tripData.find({ place: query.place, date: query.date });
     return trips;
   }
   let trips: mongoTrip[] = await tripData.find({});
