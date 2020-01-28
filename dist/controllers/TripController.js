@@ -78,7 +78,6 @@ exports.updateTrip = (trip, imageFiles, tripRepository) => __awaiter(void 0, voi
                 throw http_errors_1.default(501, err);
             }
         });
-        console.log(trip.images);
         trip.images.push(`/home/sergio/data/trips/${img.name}`);
     }
     const tripUpdated = yield tripRepository.updateTrip(trip);
