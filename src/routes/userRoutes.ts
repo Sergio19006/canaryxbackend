@@ -34,6 +34,7 @@ router.post("/signup", [
     if (!error.isEmpty())
       throw createError(411, "Signup was wrong");
 
+
     const user: User = req.body;
     const img: File = req.files;
     userController.signup(user, img, userRepository);

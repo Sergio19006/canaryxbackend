@@ -21,7 +21,7 @@ export const createUser = async (user: User) => {
     await data.save();
     return "success";
   } catch (err) {
-      throw createError(411, "CreateUser was wrong");
+    throw createError(411, "CreateUser was wrong");
   }
 }
 
