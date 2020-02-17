@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const connectDatabase = () => {
 
-  let uri = "mongodb+srv://sergio:<>@clustercanaryxperience-mbdzt.mongodb.net/test?retryWrites=true&w=majority";
+  let uri = "mongodb+srv://sergio:@clustercanaryxperience-mbdzt.mongodb.net/test?retryWrites=true&w=majority";
   mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, (err) => {
     console.log(err)
   });
