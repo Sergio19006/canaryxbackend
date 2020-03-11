@@ -47,7 +47,8 @@ export const activateTrip = async (_id: String, tripRepository: any) => {
     const trip = await tripRepository.activateTrip(_id);
     if (trip != null) return trip;
     else throw createError(401, "No trip id is wrong");
-  } else throw createError(401, "No trip id is wrong");
+  }
+  else throw createError(401, "No trip id is wrong");
 };
 
 export const updateTrip = async (
@@ -57,13 +58,9 @@ export const updateTrip = async (
 ) => {
   trip.images = [];
   for (const img of imageFiles) {
-    img.mv(`/home/sergio/data/trips/${img.name}`, err => {
-      if (err) {
-        throw createError(501, err);
-      }
-    });
-    trip.images.push(`/home/sergio/data/trips/${img.name}`);
+    trip.images.push(`/data/trips/${img.name}`);
   }
+
   const tripUpdated: mongoTrip = await tripRepository.updateTrip(trip);
   if (tripUpdated != null) return tripUpdated;
   else throw createError(401, "No trip id is wrong");

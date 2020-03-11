@@ -49,17 +49,17 @@ Canary Xperience Team`,
     attachments: [
       {
         filename: "file.pdf",
-        path: `/home/sergio/data/pdfs/Trip Ticket ${email}.pdf`,
+        path: `/data/pdfs/Trip Ticket ${email}.pdf`,
         contentType: "application/pdf"
       }
     ]
   };
 
-  const path = "/home/sergio/data/qrcode/out.png";
+  const path = "/data/qrcode/out.png";
   const qrcode: String = await generateQR(`Punchase Confirmation of ${email}`);
 
   fs.writeFileSync(
-    `/home/sergio/data/qrcode/${email}.out.png`,
+    `/data/qrcode/${email}.out.png`,
     qrcode.split(",")[1],
     "base64"
   );
@@ -91,7 +91,7 @@ Canary Xperience Team`,
 
   pdf
     .create(contenido, options)
-    .toFile(`/home/sergio/data/pdfs/Trip Ticket ${email}.pdf`, (err, res) => {
+    .toFile(`data/pdfs/Trip Ticket ${email}.pdf`, (err, res) => {
       if (err) console.log(err);
       else {
         transport.sendMail(mailOptions, (error, info) => {

@@ -29,18 +29,9 @@ exports.login = (email, password, userRepository) => __awaiter(void 0, void 0, v
 exports.signup = (user, imgObject, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
     if (imgObject != undefined) {
         const img = imgObject['img'];
-        try {
-            img.mv(`/home/sergio/data/users/${img.name}.jpg`, (err) => {
-                if (err)
-                    throw http_errors_1.default(501, err);
-            });
-            user.logo = `/home/sergio/data/users/${img.name}.jpg`;
-        }
-        catch (err) {
-            console.log(err);
-        }
-        ;
+        user.logo = `/data/users/${img.name}.jpg`;
     }
+    ;
     return yield userRepository.createUser(user);
 });
 exports.buyTrip = (email, _id, numberOfPersons, userRepository, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {

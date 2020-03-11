@@ -20,16 +20,9 @@ export const login = async (email: String, password: String, userRepository: any
 export const signup = async (user: User, imgObject: File, userRepository: any) => {
     if (imgObject != undefined) {
         const img = imgObject['img'];
-        try {
-            img.mv(`/home/sergio/data/users/${img.name}.jpg`, (err) => {
-                if (err)
-                    throw createError(501, err);
-            });
-            user.logo = `/home/sergio/data/users/${img.name}.jpg`;
-        } catch (err) {
-            console.log(err);
-        };
-    }
+        user.logo = `/data/users/${img.name}.jpg`;
+    };
+
     return await userRepository.createUser(user);
 };
 
