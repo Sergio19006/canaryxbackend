@@ -6,25 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      role: node
+      role: nodexperience
   template:
     metadata:
       labels:
-        role: node
+        role: nodexperience
     spec:
       containers:
       - name: nodexperience
-        image: nodexperience
+        image: sergio19006/nodexperience
         imagePullPolicy: IfNotPresent        
         ports:
         - containerPort: 3000
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "password"
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "200m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"

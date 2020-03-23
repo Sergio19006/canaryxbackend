@@ -29,8 +29,10 @@ export const signup = async (user: User, imgObject: File, userRepository: any) =
 
 export const buyTrip = async (email: String, _id: String, numberOfPersons: Number, userRepository: any, tripRepository: any) => {
     const trip: mongoTrip = await tripRepository.tripById(_id);
-    if (handleParticipants(numberOfPersons, trip)) {
-        sendMail(email);
+    if (trip != null) {
+        if (handleParticipants(numberOfPersons, trip)) {
+            sendMail(email);
+        }
     }
 
     return "Check your email for the pdf with your entri trip.";

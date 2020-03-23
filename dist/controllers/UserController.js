@@ -36,8 +36,10 @@ exports.signup = (user, imgObject, userRepository) => __awaiter(void 0, void 0, 
 });
 exports.buyTrip = (email, _id, numberOfPersons, userRepository, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
     const trip = yield tripRepository.tripById(_id);
-    if (buyTry_1.handleParticipants(numberOfPersons, trip)) {
-        buyTry_1.sendMail(email);
+    if (trip != null) {
+        if (buyTry_1.handleParticipants(numberOfPersons, trip)) {
+            buyTry_1.sendMail(email);
+        }
     }
     return "Check your email for the pdf with your entri trip.";
 });
