@@ -15,6 +15,14 @@ spec:
       containers:
       - name: nodexperience
         image: sergio19006/nodexperience
-        imagePullPolicy: IfNotPresent        
+        imagePullPolicy: Always        
         ports:
         - containerPort: 3000
+        env:
+          - name: MAIL_PASSWORD
+            value: ""
+          - name: ATLAS_PASSWORD
+            value: ""
+        resources:
+          requests:
+            cpu: "100m"
