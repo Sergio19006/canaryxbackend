@@ -34,7 +34,7 @@ export const sendMail = async (email: String) => {
     service: "gmail",
     auth: {
       user: "nodemail212221212@gmail.com",
-      pass: ""
+      pass: process.env.MAIL_PASSWORD
     }
   });
 
@@ -65,10 +65,6 @@ Canary Xperience Team`,
   }
 
   axios.post('http://localhost:1234/qrcodes', dataQr);
-
-  const dataPDF = {
-    email
-  }
 
   const response = await axios.post('http://localhost:1234/createPDF', { email });
   if (response.status >= 200) {

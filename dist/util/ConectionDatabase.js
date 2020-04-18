@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 exports.connectDatabase = () => {
-    let uri = "mongodb+srv://sergio:vkz41ITyig2g1D8v@clustercanaryxperience-mbdzt.mongodb.net/test?retryWrites=true&w=majority";
+    let uri = `mongodb+srv://sergio:${process.env.ATLAS_PASSWORD}@clustercanaryxperience-mbdzt.mongodb.net/test?retryWrites=true&w=majority`;
     mongoose_1.default.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true }, (err) => {
         if (err)
             console.log(err);

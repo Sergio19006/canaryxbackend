@@ -25,4 +25,4 @@ spec:
             value: ""
         resources:
           requests:
-            cpu: "100m"
+            cpu: "150m"

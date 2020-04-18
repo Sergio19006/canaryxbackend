@@ -7,7 +7,14 @@ import asyncHandler from 'express-async-handler';
 
 const router = Router();
 
-router.get("/", (req:Request, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
+  //500ms
+  for (let i = 0; i < 1000000000; i++) {
+    let a = Math.sqrt(i);
+    let b = Math.sqrt(i / 2);
+    Math.sqrt(Math.pow(a * b, a) / 2);
+  }
+
   res.status(200).send("Bienvenido a Canary Experience");
 });
 
@@ -51,7 +58,7 @@ router.post("/activateTrip", asyncHandler(async (req: Request, res: Response) =>
 router.post("/updateTrip", asyncHandler(async (req: any, res: Response) => {
   const trip: Trip = req.body;
   const files: File[] = req.files.img;
-  const trips = await tripController.updateTrip(trip,files, tripRepository);
+  const trips = await tripController.updateTrip(trip, files, tripRepository);
   return res.status(200).send(trips);
 }));
 
@@ -87,14 +94,14 @@ router.post("/responseReview", asyncHandler(async (req: Request, res: Response) 
 
 router.post("/tripsByOwner", asyncHandler(async (req: Request, res: Response) => {
 
-  const { owner} = req.body; 
+  const { owner } = req.body;
   const trips = await tripController.tripsByOwner(owner, tripRepository);
   return res.status(200).send(trips);
 }));
 
 router.post("/findtrips", asyncHandler(async (req: Request, res: Response) => {
 
-  const query: Query = req.body; 
+  const query: Query = req.body;
   const trips = await tripController.findTrips(query, tripRepository);
   return res.status(200).send(trips);
 }));

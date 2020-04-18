@@ -26,6 +26,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.get('/', function (req, res) {
+  res.send('Hello trippps!');
+});
 
 app.post('/photosTrip', function (req, res) {
   const imageFiles = req.files.img;

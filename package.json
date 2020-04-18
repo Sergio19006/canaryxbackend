@@ -9,7 +9,7 @@
 	"author": "Bowden Kelly",
 	"license": "MIT",
 	"scripts": {
-		"start":"npm run serve",
+		"start": "npm run serve",
 		"serve": " rm -rf dist && tsc && node dist/server.js",
 		"debug": " rm -rf dist && tsc && node --nolazy --inspect-brk=63516 dist/server.js",
 		"watch-node": "nodemon dist/server.js",
