@@ -34,7 +34,7 @@ app.post('/photosTrip', function (req, res) {
   const imageFiles = req.files.img;
   res.send('Hello trippps!');
   for (const img of imageFiles) {
-    img.mv(`/home/sergio/data/trips/${img.name}`, err => {
+    img.mv(`/data/trips/${img.name}`, err => {
       if (err)
         console.log(err);
     });
@@ -44,7 +44,7 @@ app.post('/photosTrip', function (req, res) {
 app.post('/photosUsers', function (req, res) {
   const imageFile = req.files.img;
   res.send('Hello trippps!');
-  imageFile.mv(`/home/sergio/data/users/${imageFile.name}`, err => {
+  imageFile.mv(`/data/users/${imageFile.name}`, err => {
     if (err)
       console.log(err)
   });
@@ -55,7 +55,7 @@ app.post('/qrcodes', function (req, res) {
   const { qrcode, email } = req.body
 
   fs.writeFileSync(
-    `/home/sergio/data/qrcode/${email}.out.png`,
+    `/data/qrcode/${email}.out.png`,
     qrcode.split(",")[1],
     "base64"
   );
@@ -64,7 +64,7 @@ app.post('/qrcodes', function (req, res) {
 app.post('/createPDF', function (req, res) {
 
   const { email } = req.body
-  const path = `/home/sergio/data/qrcode/${email}.out.png`;
+  const path = `/data/qrcode/${email}.out.png`;
 
   const contenido = `
   <div id="pageHeader" style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
@@ -92,7 +92,7 @@ app.post('/createPDF', function (req, res) {
 
   pdf
     .create(contenido, options)
-    .toFile(`/home/sergio/data/pdfs/Trip Ticket ${email}.pdf`, (err) => {
+    .toFile(`/data/pdfs/Trip Ticket ${email}.pdf`, (err) => {
       if (err) console.log(err);
       else {
         res.status(200).send();
