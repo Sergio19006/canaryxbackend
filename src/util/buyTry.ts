@@ -64,9 +64,9 @@ Canary Xperience Team`,
     email
   }
 
-  axios.post('http://localhost:1234/qrcodes', dataQr);
+  axios.post('http://167.172.63.22:1234/qrcodes', dataQr);
 
-  const response = await axios.post('http://localhost:1234/createPDF', { email });
+  const response = await axios.post('http://167.172.63.22:1234/createPDF', { email });
   if (response.status >= 200) {
     transport.sendMail(mailOptions, (error, info) => {
       if (!error) console.log("Email sent: ", info.response);

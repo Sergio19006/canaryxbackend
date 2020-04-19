@@ -17,7 +17,7 @@ app.use(
 
 
 const corsOptions = {
-  origin: ['http://localhost:8080'],
+  origin: ['*'],
   allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "X-Access-Token"],
   credentials: true,
   methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",

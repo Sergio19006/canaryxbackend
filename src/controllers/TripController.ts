@@ -58,7 +58,7 @@ export const updateTrip = async (
 ) => {
   trip.images = [];
   for (const img of imageFiles) {
-    trip.images.push(`/data/trips/${img.name}`);
+    trip.images.push(`/trips/${img.name}`);
   }
 
   const tripUpdated: mongoTrip = await tripRepository.updateTrip(trip);
