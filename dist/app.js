@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const tripRoutes_1 = __importDefault(require("./routes/tripRoutes"));
@@ -14,6 +15,7 @@ const app = express_1.default();
 // Express configuration
 app.set("port", process.env.PORT || 3000);
 app.use(express_1.default.static(path_1.default.join(__dirname, "public"), { maxAge: 31557600000 }));
+dotenv_1.default.config();
 const corsOptions = {
     origin: ['http://localhost:8080'],
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "X-Access-Token"],

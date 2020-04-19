@@ -1,4 +1,5 @@
 import express, { Response, Request } from "express";
+import dotenv from 'dotenv';
 import path from "path";
 import userRouter from "./routes/userRoutes";
 import tripRouter from "./routes/tripRoutes";
@@ -13,6 +14,8 @@ app.set("port", process.env.PORT || 3000);
 app.use(
     express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
 );
+
+dotenv.config();
 
 const corsOptions = {
     origin: ['http://localhost:8080'],
