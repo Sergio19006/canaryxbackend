@@ -5,9 +5,14 @@ branches:
   only:
     - develop
 
+service:
+  -docker
+
+before_scripts:
+  docker pull sergio19006/nodexperiencetest
+
 script:
-  - npm i
-  - npm run test
+  docker run sergio19006/nodexperiencetest
 cache:
   directories:
     - node_modules
