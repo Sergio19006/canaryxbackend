@@ -15,10 +15,10 @@ describe("Add new user", () => {
   it("Should insert the user when the email is correct", async () => {
     const user: User = {
       "email": "Ser@gmail.com", "password": "23swh",
-      "nickname": "", "businnes": false, "logo": "", "description": ""
+      "nickname": "", "business": false, "logo": "", "description": ""
     }
 
-    const response = await signup(user, Repository);
+    const response = await signup(user, null, Repository);
     expect(response).equal("success");
   });
 
