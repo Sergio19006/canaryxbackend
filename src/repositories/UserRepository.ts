@@ -13,7 +13,7 @@ export const createUser = async (user: User) => {
     email: user.email,
     nickname: user.nickname || "",
     password: encriptPass,
-    business: Boolean(user.business) || false,
+    business: user.business || false,
     logo: user.logo || "",
     description: user.description || ""
   });

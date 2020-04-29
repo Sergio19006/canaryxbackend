@@ -18,6 +18,17 @@ router.get("/", (req: Request, res: Response) => {
   res.status(200).send("Bienvenido a Canary Experience");
 });
 
+router.post("/", (req: Request, res: Response) => {
+  //500ms
+  for (let i = 0; i < 1000000000; i++) {
+    let a = Math.sqrt(i);
+    let b = Math.sqrt(i / 2);
+    Math.sqrt(Math.pow(a * b, a) / 2);
+  }
+
+  res.status(200).send("Bienvenido a Canary Experience POST");
+});
+
 router.post("/addTrip", asyncHandler(async (req: Request, res: Response) => {
   const trip: Trip = req.body;
   await tripController.addTrip(trip, tripRepository);

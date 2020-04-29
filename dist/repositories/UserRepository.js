@@ -24,7 +24,7 @@ exports.createUser = (user) => __awaiter(void 0, void 0, void 0, function* () {
         email: user.email,
         nickname: user.nickname || "",
         password: encriptPass,
-        business: Boolean(user.business) || false,
+        business: user.business || false,
         logo: user.logo || "",
         description: user.description || ""
     });
