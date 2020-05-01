@@ -20,7 +20,7 @@ export const login = async (email: String, password: String, userRepository: any
 export const signup = async (user: User, imgObject: File, userRepository: any) => {
     if (imgObject != undefined) {
         const img = imgObject['img'];
-        user.logo = `/users/${img.name}`;
+        user.logo = `${process.env.PHOTO_SERVICE}/users/${img.name}`;
     };
 
     return await userRepository.createUser(user);

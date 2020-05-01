@@ -29,7 +29,7 @@ exports.login = (email, password, userRepository) => __awaiter(void 0, void 0, v
 exports.signup = (user, imgObject, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
     if (imgObject != undefined) {
         const img = imgObject['img'];
-        user.logo = `/users/${img.name}`;
+        user.logo = `${process.env.PHOTO_SERVICE}/users/${img.name}`;
     }
     ;
     return yield userRepository.createUser(user);
