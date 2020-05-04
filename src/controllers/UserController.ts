@@ -2,6 +2,7 @@ import { sign } from "jsonwebtoken";
 import { User } from '../types/user';
 import createError from 'http-errors';
 import { mongoTrip, File } from "trip";
+import { mongoUser } from "user";
 import { sendMail, handleParticipants } from '../util/buyTry';
 
 
@@ -20,7 +21,7 @@ export const login = async (email: String, password: String, userRepository: any
 export const signup = async (user: User, imgObject: File, userRepository: any) => {
     if (imgObject != undefined) {
         const img = imgObject['img'];
-        user.logo = `${process.env.PHOTO_SERVICE}/users/${img.name}`;
+        user.logo = `${process.env.PHOTO_SERVICE}users/${img.name}`;
     };
 
     return await userRepository.createUser(user);
@@ -36,6 +37,15 @@ export const buyTrip = async (email: String, _id: String, numberOfPersons: Numbe
     }
 
     return "Check your email for the pdf with your entri trip.";
+};
+
+export const findUser = async (email: String, tripRepository: any) => {
+    const user: mongoUser = await tripRepository.findUser(email);
+    if (user == null) {
+        createError(411, "user not found");
+        return;
+    }
+    return user;
 };
 
 

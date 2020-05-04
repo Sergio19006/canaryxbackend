@@ -33,3 +33,11 @@ export const checkPassw = async (email: String, password: String) => {
   return await compare(password, user.password);
 }
 
+export const findUser = async (email: String) => {
+  connectDatabase();
+  const user: mongoUser = await userData.findOne({ email });
+  if (user == undefined)
+    return false;
+  return user;
+}
+

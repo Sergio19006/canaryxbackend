@@ -47,6 +47,12 @@ router.post("/tripById", asyncHandler(async (req: Request, res: Response) => {
   return res.status(200).send(trip);
 }));
 
+router.post("/removeTrip", asyncHandler(async (req: Request, res: Response) => {
+  const { id } = req.body;
+  const trip = await tripController.removeTrip(id, tripRepository);
+  return res.status(200).send(trip);
+}));
+
 router.post("/tripsByPlace", asyncHandler(async (req: Request, res: Response) => {
   const { place } = req.body;
   const trips = await tripController.tripsByPlace(place, tripRepository);

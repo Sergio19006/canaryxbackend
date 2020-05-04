@@ -58,7 +58,7 @@ export const updateTrip = async (
 ) => {
   trip.images = [];
   for (const img of imageFiles) {
-    trip.images.push(`${process.env.PHOTO_SERVICE}/trips/${img.name}`);
+    trip.images.push(`${process.env.PHOTO_SERVICE}trips/${img.name}`);
   }
 
   const tripUpdated: mongoTrip = await tripRepository.updateTrip(trip);
@@ -109,6 +109,12 @@ export const responseReview = async (
 
 export const findTrips = async (query: any, tripRepository: any) => {
   const trips: mongoTrip = await tripRepository.findTrips(query);
+  if (trips != null) return trips;
+  else throw createError(401, "No trip found");
+};
+
+export const removeTrip = async (id: String, tripRepository: any) => {
+  const trips: mongoTrip = await tripRepository.removeTripById(id);
   if (trips != null) return trips;
   else throw createError(401, "No trip found");
 };

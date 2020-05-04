@@ -115,4 +115,11 @@ exports.findTrips = (query, tripRepository) => __awaiter(void 0, void 0, void 0,
     else
         throw http_errors_1.default(401, "No trip found");
 });
+exports.removeTrip = (id, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const trips = yield tripRepository.removeTripById(id);
+    if (trips != null)
+        return trips;
+    else
+        throw http_errors_1.default(401, "No trip found");
+});
 //# sourceMappingURL=TripController.js.map

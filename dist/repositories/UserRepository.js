@@ -43,4 +43,11 @@ exports.checkPassw = (email, password) => __awaiter(void 0, void 0, void 0, func
         return false;
     return yield bcrypt_1.compare(password, user.password);
 });
+exports.findUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    const user = yield UserModel_1.userData.findOne({ email });
+    if (user == undefined)
+        return false;
+    return user;
+});
 //# sourceMappingURL=UserRepository.js.map

@@ -3,7 +3,7 @@ import * as userController from "../controllers/UserController";
 import * as userRepository from "../repositories/UserRepository";
 import * as tripRepository from "../repositories/TripRepository";
 import { check, validationResult } from "express-validator";
-import { User } from 'user';
+import { User, mongoUser } from 'user';
 import { File } from '../types/trip';
 import createError from 'http-errors';
 import asyncHandler from 'express-async-handler';
@@ -34,7 +34,6 @@ router.post("/signup", [
     if (!error.isEmpty())
       throw createError(411, "Signup was wrong");
 
-
     const user: User = req.body;
     const img: File = req.files;
     userController.signup(user, img, userRepository);
@@ -47,6 +46,14 @@ router.post("/buyTrip", [
     const { email, _id, numberOfPersons } = req.body;
     const trip = await userController.buyTrip(email, _id, numberOfPersons, userRepository, tripRepository);
     return res.status(200).send(trip);
+  }));
+
+router.post("/findUser", [
+  check("email", "Email is not valid").isEmail()],
+  asyncHandler(async (req: Request, res: Response) => {
+    const { email } = req.body;
+    const user: mongoUser = await userController.findUser(email, userRepository);
+    return res.status(200).send(user);
   }));
 
 export default router;

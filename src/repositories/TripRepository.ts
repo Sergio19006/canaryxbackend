@@ -39,6 +39,12 @@ export const tripById = async (_id: String) => {
   return trip;
 }
 
+export const removeTripById = async (_id: String) => {
+  connectDatabase();
+  const trip: object = await tripData.deleteOne({ _id });
+  return trip;
+}
+
 export const tripsByType = async (type: String) => {
   connectDatabase();
   const trips: Array<mongoTrip> = await tripData.find({ type });

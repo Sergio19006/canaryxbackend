@@ -57,5 +57,12 @@ router.post("/buyTrip", [
     const trip = yield userController.buyTrip(email, _id, numberOfPersons, userRepository, tripRepository);
     return res.status(200).send(trip);
 })));
+router.post("/findUser", [
+    express_validator_1.check("email", "Email is not valid").isEmail()
+], express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const user = yield userController.findUser(email, userRepository);
+    return res.status(200).send(user);
+})));
 exports.default = router;
 //# sourceMappingURL=userRoutes.js.map

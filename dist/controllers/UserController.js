@@ -29,7 +29,7 @@ exports.login = (email, password, userRepository) => __awaiter(void 0, void 0, v
 exports.signup = (user, imgObject, userRepository) => __awaiter(void 0, void 0, void 0, function* () {
     if (imgObject != undefined) {
         const img = imgObject['img'];
-        user.logo = `${process.env.PHOTO_SERVICE}/users/${img.name}`;
+        user.logo = `${process.env.PHOTO_SERVICE}users/${img.name}`;
     }
     ;
     return yield userRepository.createUser(user);
@@ -42,5 +42,13 @@ exports.buyTrip = (email, _id, numberOfPersons, userRepository, tripRepository) 
         }
     }
     return "Check your email for the pdf with your entri trip.";
+});
+exports.findUser = (email, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield tripRepository.findUser(email);
+    if (user == null) {
+        http_errors_1.default(411, "user not found");
+        return;
+    }
+    return user;
 });
 //# sourceMappingURL=UserController.js.map

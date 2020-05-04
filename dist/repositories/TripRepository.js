@@ -44,6 +44,11 @@ exports.tripById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
     const trip = yield TripModel_1.tripData.findOne({ _id });
     return trip;
 });
+exports.removeTripById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    ConectionDatabase_1.connectDatabase();
+    const trip = yield TripModel_1.tripData.deleteOne({ _id });
+    return trip;
+});
 exports.tripsByType = (type) => __awaiter(void 0, void 0, void 0, function* () {
     ConectionDatabase_1.connectDatabase();
     const trips = yield TripModel_1.tripData.find({ type });

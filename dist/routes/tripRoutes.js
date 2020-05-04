@@ -57,6 +57,11 @@ router.post("/tripById", express_async_handler_1.default((req, res) => __awaiter
     const trip = yield tripController.tripById(id, tripRepository);
     return res.status(200).send(trip);
 })));
+router.post("/removeTrip", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.body;
+    const trip = yield tripController.removeTrip(id, tripRepository);
+    return res.status(200).send(trip);
+})));
 router.post("/tripsByPlace", express_async_handler_1.default((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { place } = req.body;
     const trips = yield tripController.tripsByPlace(place, tripRepository);
