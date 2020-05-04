@@ -73,7 +73,7 @@ exports.activateTrip = (_id, tripRepository) => __awaiter(void 0, void 0, void 0
 exports.updateTrip = (trip, imageFiles, tripRepository) => __awaiter(void 0, void 0, void 0, function* () {
     trip.images = [];
     for (const img of imageFiles) {
-        trip.images.push(`${process.env.PHOTO_SERVICE}/trips/${img.name}`);
+        trip.images.push(`${process.env.PHOTO_SERVICE}trips/${img.name}`);
     }
     const tripUpdated = yield tripRepository.updateTrip(trip);
     if (tripUpdated != null)
