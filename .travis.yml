@@ -5,15 +5,14 @@ branches:
 
 service:
   -docker
-
-matrix: 
+  
   before_scripts:
-    docker pull sergio19006/nodexperiencetest
+    docker pull $DOCKER_USERNAME/nodexperiencetest
 
   script:
-    docker run sergio19006/nodexperiencetest
+    docker run $DOCKER_USERNAME/nodexperiencetest
 
-    after_success:
-      - docker build -t $DOCKER_USERNAME/nodexperiencetest .   
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker push $DOCKER_USERNAME/nodexperiencetest:latest
+  after_success:
+    - sudo docker build -t "$DOCKER_USERNAME"/nodexperience --build-arg ATLAS_PASSWORD="$ATLAS_PASSWORD" --build-arg MAIL_PASSWORD="$MAIL_PASSWORD" --build-arg PHOTO_SERVICE="$PHOTO_SERVICE"  .   
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push $DOCKER_USERNAME/nodexperiencetest:latest
