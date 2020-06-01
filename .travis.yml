@@ -6,9 +6,9 @@ service: "-docker"
 before_scripts: docker pull $DOCKER_USERNAME/nodexperiencetest
 script: docker run $DOCKER_USERNAME/nodexperiencetest
 after_success:
-- sudo docker build -t $DOCKER_USERNAME/nodexperience --build-arg "ATLAS_PASSWORD=${ATLAS_PASSWORD}"
-  --build-arg "MAIL_PASSWORD=${MAIL_PASSWORD}" --build-arg "PHOTO_SERVICE=${PHOTO_SERVICE}"  .
-- docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+- sudo docker build -t $DOCKER_USERNAME/nodexperience --build-arg ATLAS_PASSWORD=$ATLAS_PASSWORD
+  --build-arg MAIL_PASSWORD=$MAIL_PASSWORD --build-arg PHOTO_SERVICE=$PHOTO_SERVICE .
+- docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker push $DOCKER_USERNAME/nodexperience:latest
 env:
   global:
