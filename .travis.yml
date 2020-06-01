@@ -1,26 +1,19 @@
 branches:
   only:
     - develop
+    - master
 
 service:
   -docker
 
-before_scripts:
-  docker pull sergio19006/nodexperiencetest
+matrix: 
+  before_scripts:
+    docker pull sergio19006/nodexperiencetest
 
-script:
-  docker run sergio19006/nodexperiencetest
-cache:
-  directories:
-    - node_modules
-    
- 
-#after_success:
-   #- language: bash  
-   #   name: "Docker Build Image"    
-    #  before_script: docker build -t $DOCKER_USERNAME/nodexperiencetest .
-     # script: docker run -d -p 27017:27017 $DOCKER_USERNAME/nodexperiencetest
-      #after_success: 
-       #  
-        #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        #- docker push $DOCKER_USERNAME/nodexperiencetest:latest
+  script:
+    docker run sergio19006/nodexperiencetest
+
+    after_success:
+      - docker build -t $DOCKER_USERNAME/nodexperiencetest .   
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker push $DOCKER_USERNAME/nodexperiencetest:latest
