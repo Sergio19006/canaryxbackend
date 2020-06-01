@@ -1,18 +1,17 @@
 branches:
   only:
-    - develop
-    - master
-
-service:
-  -docker
-
-before_scripts:
-  docker pull $DOCKER_USERNAME/nodexperiencetest
-
-script:
-  docker run $DOCKER_USERNAME/nodexperiencetest
-
+  - develop
+  - master
+service: "-docker"
+before_scripts: docker pull $DOCKER_USERNAME/nodexperiencetest
+script: docker run $DOCKER_USERNAME/nodexperiencetest
 after_success:
-   - sudo docker build -t $DOCKER_USERNAME/nodexperience --build-arg "ATLAS_PASSWORD=${ATLAS_PASSWORD}" --build-arg "MAIL_PASSWORD=${MAIL_PASSWORD}" --build-arg "PHOTO_SERVICE=${PHOTO_SERVICE}"  . 
-   - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-   - docker push $DOCKER_USERNAME/nodexperience:latest
+- sudo docker build -t $DOCKER_USERNAME/nodexperience --build-arg "ATLAS_PASSWORD=${ATLAS_PASSWORD}"
+  --build-arg "MAIL_PASSWORD=${MAIL_PASSWORD}" --build-arg "PHOTO_SERVICE=${PHOTO_SERVICE}"  .
+- docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+- docker push $DOCKER_USERNAME/nodexperience:latest
+env:
+  global:
+  - secure: Tb4XInLDyCUs6WhKlpnBMAzd2tFCfobRmfhIkT1uofCvCt6hNagq4e1YSDMS6JBaXMuV4d+vU/4UrOkXFmoSYRYxEUJiCaSX5yrVZ09BwS6IaFrrapOuiZV+haT1WmtUArgHBxFxRCAcmb++RCQGIeu7p376qts5hgy8ML7jmsKJEcF3UpWDjjml6gZ3ee7iMidjfuthSNawEJjJzXkWxXhkS/l7sGx9s6dzsjSA2sWsGUnznnv4Oxg+sIX8W7iqzU1vFIfs+U6RWLtxyTtBlbsaWfw+nVkXN0IMnPGPYeFqSiFL2xgh2Ing//lbtE5rZjxTnDaZ2MwjBWA9ZnsyU4SLKwFJhryiVC2/DrF8pmDmNPKRlfyhgYySmu0qqnQn4Cqgs6QdBv6vu4r3QKuIvlR2QblAR8Oto6aB5T1Fe5JThgvcv+ckaGGdKvp241ushHOaHZZC/mC7ewQpXrGD9VLTMHUT+wAflhHBE8ARRjQwH4fL66ob0OTcTwlOtTgADuycth6A31NymmeSrAxdsPJccuJfvlUVbEI/OX6IqPR8jiSqTJqK5xF9sGitLSTjuT+M1ZOGx6y0P/5cLhy7DrtmBP3C+H7FfsXSDcSiCE1JaSJz56fdPFHzr6qH9OqdUjRg3ntGMOMxzCboY9ssqVjMENJJ/T1Ohmisi0ufyGY=
+  - secure: LEq8KZOZEk9qsR1NahT9a8pd8tIqhqoLNm/+8h8D1qB47jMnMa+Ggpc867u0rb2yLg6p/9yKjU5j/o9/4T4vDTZw+1xke/lcytDbYPmEsN6n1T1LCI+84YSn3MA25duTO8DHW5rjs6Fu3CFf9RRdOxNIUhGs7eodSffuJMTTxOhgadIo6m0JG2BtQZt2HlC1QoYZneOC0EQgI4oWb0m6nbjB4xgLyM7Kv5vlPlFGCWvFksLs/SSd0yBU4iSBsNBQA09oS1Iu9KBcjqHOPVS3yhIIIGHmJWQH8UqAFNv6ehB1c1fmwhQtVMrg6Mca34AC6u1ZVI208RxwL4jrk88RMhhDx4mA3f23ztIJpDlp2z1g//N7ZKbJHvht16uHVI1UPYC4yJwdHmqJeXsUvAvHDdmBjpe3cVeJhokwiI8yTzIHQfx3x/WORwNqgEfX3J228xEXHtjjGdbDF94CYcGVsEZEHuWHDdkesuuumEHxZuLn5E2Nf0Uf0652GlhMICUXBrgm7mrlxHovWFIGGWMmDaJf7mcwpr9NbG52nBf6mtuowb6dxl1r+aEsVT3wriWUnvPI2W4EqJJPngvfQkiJWZkx1dj9WXulLqMzk4sM5fHLhoc+v8hQS2Xqu9QecBhWLZ0aUtYwsm2yqduoksGOKUYfmgphVLAjCsLi4vIGtho=
+  - secure: Flyqmp2wfRalDPAgOJz1KCq3aNHnfHnzKTWwt5Gx/wpTovEi881sw8qAU8a7rZL2OHlLX83Csg3tLYFbGyTCde0bjqIC4COJUsywVp2EAHE/weruHYRJweg79oMljtVsWgd3jAptFnY+ecRBXFo1aSj87MZlhBjn6OyXDzOXUvkUoM8NRkgSULHeHnlTfpbDMIywf4Yy7UdSGKa1aHpurGNKV9Eh6G1TQN+LSDczmBi+F14PiibFySL4mkbEOSbNU5OyUNqMKWWINXVN+SHODEu8XFYlE4jQkbdBXSvLJQPactOXY8ThIQtW1VfP018ilOjWN2rdnvTIRVIbVD0AULeHtPG/Ia/Rp6WNOlzTD+JwYCxG+d5KAXQmJGpDluKR8WJqfzcrAdt7F+bStRA5Nrus73uRdJHj+hCfbF90VuL4jCvJ8vyI1I7uuiN/ryVvWg1unpsNtDVLLo84YzoX0h/U2jRg+hk43X9NzgtChNvVI1H1TpcRXkV5I020vtQiapGRQfn9LvPBLpEsQW7NbkvFjGfDgL+UP4iuQKbXeJ8Yyo6MwxyQiaM5oUmsuLj0qBc1gYHnyaC2p8WPhO09Me1nVOjpEI92bFDCIIj8Xop1gM+r6pGJhUK1l2eSBVHSyXpFmCnctGT2ovBBRdcwtOtLYV3Y3dABC8F7/Elg8gg=
