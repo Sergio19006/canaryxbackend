@@ -6,13 +6,13 @@ setup_git() {
 }
 
 commit_website_files() {
+  git pull
   git checkout master
   git merge develop
 }
 
 upload_files() {
-  git remote add origin-master https://${GH_TOKEN}@github.com/MVSE-outreach/resources.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin-master master
+  git push origin master
 }
 
 setup_git
