@@ -45,7 +45,8 @@
 		"nodemailer": "^6.4.2",
 		"qrcode": "^1.4.4",
 		"request": "^2.88.0",
-		"request-promise": "^4.2.5"
+		"request-promise": "^4.2.5",
+		"secure-env": "^1.2.0"
 	},
 	"devDependencies": {
 		"@types/async": "^3.0.3",

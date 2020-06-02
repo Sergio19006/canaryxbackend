@@ -1,4 +1,6 @@
 import app from "./app";
+let secureEnv = require('secure-env');
+process.env = secureEnv({ secret: 'mySecretPassword' });
 
 /**
  * Start Express server.
