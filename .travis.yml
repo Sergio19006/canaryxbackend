@@ -16,6 +16,6 @@ script: docker run $DOCKER_USERNAME/nodexperiencetest
 
 after_success:
 - language: bash
-- docker build -t $DOCKER_USERNAME/nodexperience --build-arg ${ATLAS_PASSWORD} --build-arg ${MAIL_PASSWORD} --build-arg ${PHOTO_SERVICE} .
+- docker build -t $DOCKER_USERNAME/nodexperience --build-arg ATLAS_PASSWORD --build-arg MAIL_PASSWORD --build-arg PHOTO_SERVICE .
 - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker push $DOCKER_USERNAME/nodexperience:latest
