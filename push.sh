@@ -14,7 +14,7 @@ commit_website_files() {
 upload_files() {
   git remote add origin https://Sergio19006:${GH_TOKEN}@github.com/Sergio19006/canarybackend.git > /dev/null 2>&1
   git push origin master --quiet
-
+}
 setup_git
 commit_website_files
 upload_files
