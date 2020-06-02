@@ -7,7 +7,7 @@ setup_git() {
 
 commit_website_files() {
   git fetch
-  git checkout -b master remote/master
+  git checkout -b master
   git merge develop
 }
 
