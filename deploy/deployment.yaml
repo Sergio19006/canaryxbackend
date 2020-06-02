@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodexperience
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: nodexperience
+  template:
+    metadata:
+      labels:
+        role: nodexperience
+    spec:
+      containers:
+      - name: nodexperience
+        image: sergio19006/nodexperience
+        imagePullPolicy: Always        
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "200m"

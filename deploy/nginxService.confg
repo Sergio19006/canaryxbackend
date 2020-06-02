@@ -1,0 +1,24 @@
+server{
+	server_name _;
+
+	location / {
+		root	/data/www/dist;
+		index	index.html;	
+	}
+	location /api {
+		add_header 'Access-Control-Allow-Origin' '*';
+		proxy_pass http://localhost:1234/;
+	}
+	location /users/ {
+		root	/data;
+	}
+	location /trips/ {
+                root    /data;
+        }
+	location /pdfs/ {
+                root    /data;
+        }
+	location /qr/ {
+                root    /data;
+        }
+}
