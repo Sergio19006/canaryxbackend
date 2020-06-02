@@ -11,4 +11,4 @@ after_success:
 - docker build -t $DOCKER_USERNAME/nodexperience .
 - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker push $DOCKER_USERNAME/nodexperience:latest
-- cd .travis && sh push.sh
+- sh push.sh
