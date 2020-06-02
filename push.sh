@@ -7,7 +7,7 @@ setup_git() {
 
 commit_website_files() {
   git pull
-  git checkout --track origin/master
+  git checkout master
   git merge develop
 }
 
