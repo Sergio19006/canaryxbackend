@@ -11,9 +11,7 @@ const server = app.listen(app.get("port"), () => {
         app.get("port"),
         app.get("env")
     );
-    console.log("  Press CTRL-C to stop process\n");
-    console.log("pass:", process.env.ATLAS_PASSWORD);
-    console.log("pass2:", process.env.MAIL_PASSWORD);
+    console.log("Press CTRL-C to stop process\n");
 });
 
 export default server;
