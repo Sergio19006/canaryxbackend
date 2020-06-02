@@ -9,9 +9,8 @@ before_scripts: docker pull $DOCKER_USERNAME/nodexperiencetest
 script: docker run $DOCKER_USERNAME/nodexperiencetest
 after_success:
 - language: bash
-- export ATLAS_PASSWORD=$ATLAS_PASSWORD
 - docker build -t $DOCKER_USERNAME/nodexperience --build-arg ATLAS_PASSWORD
-  --build-arg MAIL_PASSWORD="$MAIL_PASSWORD" --build-arg PHOTO_SERVICE= .
+  --build-arg MAIL_PASSWORD --build-arg PHOTO_SERVICE .
 - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker push $DOCKER_USERNAME/nodexperience:latest
 
