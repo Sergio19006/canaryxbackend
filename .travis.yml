@@ -2,14 +2,18 @@ branches:
   only:
   - develop
   - master
-service: "-docker"
+service:
+  -docker
+
 before_scripts: docker pull $DOCKER_USERNAME/nodexperiencetest
 script: docker run $DOCKER_USERNAME/nodexperiencetest
 after_success:
+- language: bash
 - docker build -t $DOCKER_USERNAME/nodexperience --build-arg ATLAS_PASSWORD=1234
   --build-arg MAIL_PASSWORD="$MAIL_PASSWORD" --build-arg PHOTO_SERVICE="$PHOTO_SERVICE" .
 - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 - docker push $DOCKER_USERNAME/nodexperience:latest
+
 env:
   global:
   - secure: Tb4XInLDyCUs6WhKlpnBMAzd2tFCfobRmfhIkT1uofCvCt6hNagq4e1YSDMS6JBaXMuV4d+vU/4UrOkXFmoSYRYxEUJiCaSX5yrVZ09BwS6IaFrrapOuiZV+haT1WmtUArgHBxFxRCAcmb++RCQGIeu7p376qts5hgy8ML7jmsKJEcF3UpWDjjml6gZ3ee7iMidjfuthSNawEJjJzXkWxXhkS/l7sGx9s6dzsjSA2sWsGUnznnv4Oxg+sIX8W7iqzU1vFIfs+U6RWLtxyTtBlbsaWfw+nVkXN0IMnPGPYeFqSiFL2xgh2Ing//lbtE5rZjxTnDaZ2MwjBWA9ZnsyU4SLKwFJhryiVC2/DrF8pmDmNPKRlfyhgYySmu0qqnQn4Cqgs6QdBv6vu4r3QKuIvlR2QblAR8Oto6aB5T1Fe5JThgvcv+ckaGGdKvp241ushHOaHZZC/mC7ewQpXrGD9VLTMHUT+wAflhHBE8ARRjQwH4fL66ob0OTcTwlOtTgADuycth6A31NymmeSrAxdsPJccuJfvlUVbEI/OX6IqPR8jiSqTJqK5xF9sGitLSTjuT+M1ZOGx6y0P/5cLhy7DrtmBP3C+H7FfsXSDcSiCE1JaSJz56fdPFHzr6qH9OqdUjRg3ntGMOMxzCboY9ssqVjMENJJ/T1Ohmisi0ufyGY=
