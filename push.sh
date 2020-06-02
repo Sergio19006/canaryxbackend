@@ -6,15 +6,16 @@ setup_git() {
 }
 
 commit_website_files() {
-  git pull
-  git checkout master
+  git fetch
+  git checkout -b master remote/master
   git merge develop
 }
 
 upload_files() {
-  git remote add origin https://Sergio19006:${GH_TOKEN}@github.com/Sergio19006/canarybackend.git > /dev/null 2>&1
-  git push origin master --quiet
+  git remote add origin https://${GH_TOKEN}@github.com/Sergio19006/canarybackend.git > /dev/null 2>&1
+  git push origin HEAD:master --quiet
 }
+
 setup_git
 commit_website_files
 upload_files
