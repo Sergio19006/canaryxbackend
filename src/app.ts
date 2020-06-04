@@ -29,9 +29,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(fileUpload());
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: any) => {
     res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
     res.append('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
