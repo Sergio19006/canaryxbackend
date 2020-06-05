@@ -32,7 +32,7 @@ app.use(fileUpload());
 app.use((req: Request, res: Response, next: any) => {
     res.append('Access-Control-Allow-Origin', ['*']);
     res.append('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.append('Access-Control-Allow-Headers', ['*']);
     next();
 });
 
