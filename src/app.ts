@@ -22,7 +22,7 @@ const corsOptions = {
     allowedHeaders: ['*'],
     credentials: true,
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    preflightContinue: false
+    preflightContinue: true
 }
 
 app.use(cors(corsOptions));
@@ -33,8 +33,7 @@ app.use((req: Request, res: Response, next: any) => {
     res.append('Access-Control-Allow-Origin', '*');
     res.append('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
     res.append('Access-Control-Allow-Headers', '*');
-    res.append('Access-Control-Request-Headers', ' * ');
-
+    res.append('Access-Control-Request-Headers', '*');
     next();
 });
 
