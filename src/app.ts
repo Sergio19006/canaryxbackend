@@ -22,20 +22,13 @@ const corsOptions = {
     allowedHeaders: ['*'],
     credentials: true,
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    preflightContinue: true
+    preflightContinue: false
 }
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(fileUpload());
 
-app.use((req: Request, res: Response, next: any) => {
-    res.append('Access-Control-Allow-Origin', '*');
-    res.append('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', '*');
-    res.append('Access-Control-Request-Headers', '*');
-    next();
-});
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/trips', tripRouter);
