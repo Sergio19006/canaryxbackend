@@ -18,18 +18,19 @@ app.use(express_1.default.static(path_1.default.join(__dirname, "public"), { max
 dotenv_1.default.config();
 const corsOptions = {
     origin: ['*'],
-    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization", "X-Access-Token"],
+    allowedHeaders: ['*'],
     credentials: true,
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    preflightContinue: false
+    preflightContinue: true
 };
 app.use(cors_1.default(corsOptions));
 app.use(express_1.default.json());
 app.use(express_fileupload_1.default());
 app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.append('Access-Control-Allow-Origin', '*');
+    res.append('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', '*');
+    res.append('Access-Control-Request-Headers', '*');
     next();
 });
 app.use('/api/v1/users', userRoutes_1.default);
